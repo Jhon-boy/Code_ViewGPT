@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+.Suport{
+    margin-top: 8%;
+    padding: 10px 20px 10px 20px;
+    width: 97vmax;
+    height: 80vh; 
+    border: 1px solid white;
+}
+.box {
+    width: auto; /* Dos divs en una fila */
+    min-width: 30%;
+    padding: 20px;
+    margin: 10px 10px 10px 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+}
+    /* Configuración para pantallas grandes */
+    .box:nth-child(1) {
+        width: 55%;
+    }
+
+
+@media (max-width: 768px) {
+    /* Cuando la pantalla es 768px o menos, cambia a una sola columna */
+    .box {
+        width: 80%;
+    }
+}
