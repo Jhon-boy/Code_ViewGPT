@@ -7,6 +7,8 @@ import Grid from '@mui/material/Grid';
 import CodeMirror from '@uiw/react-codemirror';
 import { loadLanguage } from '@uiw/codemirror-extensions-langs';
 import { vscodeDark } from '@uiw/codemirror-theme-vscode';
+import CodeTextarea from './CodeTextarea';
+import { Context } from '../configs/Condiguracion';
 
 
 export const Home = () => {
@@ -35,15 +37,17 @@ export const Home = () => {
               placeholder="Here your code"
               height="75vh"
               theme={vscodeDark}
-              extensions={[loadLanguage('java')]}
+              extensions={[loadLanguage('jsx')]}
             />
           </Grid>
           <Grid item xs={4}>
-            <Item>Aqui seran tus resultados </Item>
+            <CodeTextarea code={code} language="javascript"></CodeTextarea>
           </Grid>
         </Grid>
       </Box>
-
+      <div>
+        <Context />
+      </div>
     </div>
   )
 }

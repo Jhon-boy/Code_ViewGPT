@@ -26,7 +26,7 @@ export const Header = () => {
       <AppBar sx={{ background: "black" }}>
         <Toolbar>
           <Typography sx={{ fontSize: "1.3rem", }}>
-            Powered by   + 
+            Powered by   
             <img
               src="https://seeklogo.com/images/O/openai-logo-F97AAA4254-seeklogo.com.png"
               alt="ChatGPT Logo"

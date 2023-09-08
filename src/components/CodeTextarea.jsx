@@ -1,9 +1,9 @@
 // CodeTextarea.js
-import React from 'react';
+import React, { useContext } from 'react';
 import { styled } from '@mui/system';
-import TextareaAutosize from '@mui/base/TextareaAutosize';
+import { TextareaAutosize } from '@mui/base/TextareaAutosize';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { vscDarkPlus  } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const StyledCodeTextarea = styled(TextareaAutosize)`
   width: 100%;
@@ -13,20 +13,31 @@ const StyledCodeTextarea = styled(TextareaAutosize)`
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 10px;
-  background: black; /* Cambiar el fondo a negro */
-  color: white; /* Cambiar el color del texto a blanco */
 `;
+const code = `  return (
+  <React.StrictMode>
+     <PokemonProvider>
+    <AppRouter />
+  </PokemonProvider>
+  </React.StrictMode>
+ 
+);`
 
 export default function CodeTextarea({ code, language }) {
+  const codex = `  return (
+    <React.StrictMode>
+       <PokemonProvider>
+      <AppRouter />
+    </PokemonProvider>
+    </React.StrictMode>
+   
+  );`
   return (
-    <StyledCodeTextarea
-      aria-label="code"
-      minRows={3}
-      placeholder="Insert code here"
-    >
-      <SyntaxHighlighter language={language} style={vscDarkPlus}>
-        {code}
+    <>
+      <SyntaxHighlighter language={language} style={vscDarkPlus }>
+        {codex} 
       </SyntaxHighlighter>
-    </StyledCodeTextarea>
+    </>
+      
   );
 }
