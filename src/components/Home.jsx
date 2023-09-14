@@ -8,7 +8,7 @@ import CodeMirror from '@uiw/react-codemirror';
 import { loadLanguage } from '@uiw/codemirror-extensions-langs';
 import { vscodeDark } from '@uiw/codemirror-theme-vscode';
 import CodeTextarea from './CodeTextarea';
-import { Context } from '../configs/Condiguracion';
+import { Context } from '../configs/Configuracion';
 
 
 export const Home = () => {
@@ -29,9 +29,9 @@ export const Home = () => {
 
   return (
     <div className='Suport'>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={7}>
+      <Box sx={{ flexGrow: 2 }}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={7}>
             <CodeMirror
               value={code}
               placeholder="Here your code"
@@ -40,8 +40,8 @@ export const Home = () => {
               extensions={[loadLanguage('jsx')]}
             />
           </Grid>
-          <Grid item xs={4}>
-            <CodeTextarea code={code} language="javascript"></CodeTextarea>
+          <Grid item xs={12} md={5}>
+             <CodeTextarea code={code} language="javascript"></CodeTextarea>
           </Grid>
         </Grid>
       </Box>
