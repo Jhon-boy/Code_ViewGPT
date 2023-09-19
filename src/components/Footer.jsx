@@ -23,10 +23,10 @@ export const Footer = () => {
       <div className='footer-inicio'>
       <div>
           <Grid container spacing={2}>
-          <Grid xs={12} md={10} >
+          <Grid xs={12} md={9} >
             <h4 className='aviso'>Puedes contactarnos por nuestras redes sociales en caso de cualquier situación u otros aspectos!</h4>
           </Grid>
-          <Grid xs={12} md={2}>
+          <Grid xs={12} md={3}>
             <Grid container className='footer-iconos'>
               <FacebookOutlinedIcon className='icons' />
               <GitHubIcon className='icons'/>
