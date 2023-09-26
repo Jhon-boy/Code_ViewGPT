@@ -13,10 +13,12 @@ import { TextareaAutosize } from '@mui/base/TextareaAutosize';
 import { getLenguajes } from '../API/API_LENGUAJE';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
-
+import { generarCodigo } from '../services/ApiController'
+import { tools } from '../pure/Items';
 
 export const Context = () => {
     const [Cargarlanguages, setCargarLanguages] = React.useState([]);
+    const [cargarTools, setCargarTools] = React.useState([]);
     const [open, setOpen] = React.useState(false);
     const { setLenguaje, setDescripcion, lenguage } = React.useContext(configContext)
     const [loading, setLoading] = React.useState(false);
@@ -30,6 +32,9 @@ export const Context = () => {
         setOpen(false);
     };
 
+    const GenerateCode = async () => {
+        const response = await generarCodigo(lenguage);
+    }
     React.useEffect(() => {
         setLoading(true);
         getLenguajes()
@@ -48,20 +53,26 @@ export const Context = () => {
             <div className='btnStack'>
                 <Stack spacing={10} direction="row">
                     <Button size="large" variant="contained" onClick={handleClickOpen}>Configurar</Button>
-                    <Button size="large" variant="outlined">Generar Pruebas</Button>
+                    <Button size="large" variant="outlined" onClick={GenerateCode}>Generar Pruebas</Button>
                 </Stack>
             </div>
             <Dialog open={open} onClose={handleClose}>
                 <center> <DialogTitle>Configuremos tu código!!</DialogTitle></center>
                 <DialogContent>
-                        <h4 className='titulo'>Seleccione el lenguaje:</h4>
-                        <Autocomplete
-                            options={Cargarlanguages}
-                            getOptionLabel={(option) => option.name}
-                            onChange={(event, selectedValue) => setLenguaje(selectedValue.name)}
-                            renderInput={(params) => <TextField {...params} label="Lenguaje" />}
-                        />
-
+                    <h4 className='titulo'>Seleccione el lenguaje:</h4>
+                    <Autocomplete
+                        options={Cargarlanguages}
+                        getOptionLabel={(option) => option.name}
+                        onChange={(event, selectedValue) => setLenguaje(selectedValue.name)}
+                        renderInput={(params) => <TextField {...params} label="Lenguaje" />}
+                    />
+                    <h4 className='titulo'>Seleccione la herramienta:</h4>
+                    <Autocomplete
+                        options={Cargarlanguages}
+                        getOptionLabel={(option) => cargarTools.name}
+                        onChange={(event, selectedValue) => setLenguaje(selectedValue.name)}
+                        renderInput={(params) => <TextField {...params} label="Lenguaje" />}
+                    />
                     <DialogContentText>
                         <h4 className='titulo'>Da una breve descripción (opcional):</h4>
                     </DialogContentText>

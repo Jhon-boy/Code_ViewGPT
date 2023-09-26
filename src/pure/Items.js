@@ -54,3 +54,22 @@ export const StyledTextarea = styled(TextareaAutosize)(
     }
   `
 );
+
+export const tools = {
+  'JavaScript': ['Jasmine', 'Mocha', 'Jest'],
+  'Python': ['unittest', 'pytest', 'nose'],
+  'Java': ['JUnit', 'TestNG', 'Mockito'],
+  'C#': ['NUnit', 'xUnit', 'MS Test', 'Moq'],
+  'Ruby': ['RSpec', 'Cucumber', 'Test::Unit'],
+  'PHP': ['PHPUnit', 'Codeception', 'SimpleTest'],
+  'Go': ['testing', 'gomock', 'testify'],
+  'Typescript': ['Jest', 'Mocha', 'Jasmine'],
+  'C++': ['Google Test', 'Unity', 'Catch2'],
+  'Rust': ['rust-test', 'ctor', 'proptest'],
+  'Clojure': ['clojure.test', 'Expectations', 'Midje'],
+  'Swift': ['XCTest', 'SwiftCheck', 'Swinject'],
+  'Kotlin': ['kotlintest', 'junit5', 'mockk'],
+  'Scala': ['ScalaTest', 'specs2', 'ScalaCheck'],
+  'Elixir': ['ExUnit', 'StreamData', 'Bypass'],
+  'Haskell': ['HUnit', 'QuickCheck', 'hedgehog'], 
+  };
