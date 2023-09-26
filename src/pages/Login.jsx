@@ -1,44 +1,173 @@
-import React from 'react'
-import { Grid,Paper, Avatar, TextField, Button, Typography,Link } from '@mui/material/'
+import React, { useContext, useState, } from 'react'
+import { Grid, Paper, Avatar, TextField, Button, Typography, Link, Box, useMediaQuery, useTheme, Divider } from '@mui/material/'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import AutorenewIcon from '@mui/icons-material/Autorenew';
+import { signInWithPopup, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import '../index.css'
+import { useNavigate } from 'react-router-dom'
+import IconGoole from '../services/IconGoole.png'
+import Swal from 'sweetalert2';
+import { auth, provider } from '../services/firebase'
+import { configContext } from '../context/configContext';
 
 export const Login = () => {
-  
-  const paperStyle={padding :20,height:'70vh',width:280, margin:"20px auto"}
-  const avatarStyle={backgroundColor:'#1bbd7e'}
-  const btnstyle={margin:'8px 0'}
-  return(
-      <Grid>
-          <Paper elevation={10} style={paperStyle}>
-              <Grid align='center'>
-                   <Avatar style={avatarStyle}><AutorenewIcon/></Avatar>
-                  <h2>Sign In</h2>
-              </Grid>
-              <TextField label='Username' placeholder='Enter username' variant="outlined" fullWidth required/>
-              <TextField label='Password' placeholder='Enter password' type='password' variant="outlined" fullWidth required/>
-              <FormControlLabel
-                  control={
-                  <Checkbox
-                      name="checkedB"
-                      color="primary"
-                  />
-                  }
-                  label="Remember me"
-               />
-              <Button type='submit' color='primary' variant="contained" style={btnstyle} fullWidth>Sign in</Button>
-              <Typography >
-                   <Link href="#" >
-                      Forgot password ?
-              </Link>
-              </Typography>
-              <Typography > Do you have an account ?
-                   <Link href="#" >
-                      Sign Up 
-              </Link>
-              </Typography>
-          </Paper>
-      </Grid>
-  )
+
+    const { setUsuario } = useContext(configContext);
+    const [emailRef, setEmailRef] = useState('');
+    const [passwordRef, setPasswordRef] = useState('');
+
+    const paperStyle = { padding: 20, margin: "30px auto", height: "auto", width: "320px" }
+    const avatarStyle = {
+        backgroundColor: 'gray',
+        height: '70px',  // Altura mediana de 50px (puedes ajustar según tu necesidad)
+        width: '70px'    // Ancho mediano de 50px (puedes ajustar según tu necesidad)
+    };
+    const btnstyle = { margin: '8px 0' }
+    const theme = useTheme();
+    const isMatch = useMediaQuery(theme.breakpoints.down("md"));
+
+
+    // navegador 
+    //Funcion de routers para la navegacion 
+    const history = useNavigate();
+    const navigateTo = (path) => {
+        history(path);
+    }
+
+    const loginGoole = async () => {
+        try {
+            await signInWithPopup(auth, provider).then((data) => {
+                setUsuario(data.user.email);
+                localStorage.setItem('credentials', auth);
+                sessionStorage.setItem('credentials', auth);
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Bienvenido',
+                    showConfirmButton: false,
+                    timer: 3500,
+                    timerProgressBar: true
+
+                })
+                navigateTo('/');
+            })
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Verifique correo o contraseña',
+            })
+        }
+    };
+    const iniciarSesion = async () => {
+        try {
+            await signInWithEmailAndPassword(auth, emailRef, passwordRef).then((data) => {
+                setUsuario(data.user.email);
+                localStorage.setItem('credentials', auth);
+                sessionStorage.setItem('credentials', auth);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Bienvenido',
+                    showConfirmButton: false,
+                    timer: 2500,
+                    timerProgressBar: true
+
+                })
+                navigateTo('/');
+            })
+
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Verifique correo o contraseña',
+            })
+        }
+
+    }
+
+    return (
+        <div className='login'>
+            <Box sx={{ flexGrow: 2 }} height="100vh">
+                <Grid container spacing={3}>
+                    {isMatch ? (
+                        <>
+                            <h5>Ingresa  Code View</h5>
+                        </>
+                    ) : (<>
+                        <Grid item xs={12} md={6}>
+                            <div className='portada'>
+                                <img alt='portada-img' className='portada-img' src='https://quodem.com/wp-content/uploads/2022/03/Software-outsourcing.jpg' />
+                            </div>
+                        </Grid>
+                    </>)
+                    }
+                    <Grid item xs={12} md={5}>
+                        <div className='inicio'>
+                            <Paper elevation={15} style={paperStyle}>
+                                <Grid align='center'>
+                                    <Avatar style={avatarStyle}>
+
+                                    </Avatar>
+                                </Grid>
+                                <div style={{ marginTop: '20px' }}>
+                                    <TextField className='input'
+                                        label='Usuario' placeholder='Ingresa el usuario'
+                                        type='email' variant="outlined" fullWidth required
+                                        onChange={(e) => {
+                                            setEmailRef(e.target.value);
+                                        }}
+                                    />
+                                </div>
+                                <div style={{ marginTop: '20px' }}>
+                                    <TextField className='input' label='Contraseña' placeholder='Ingrese contraseña'
+                                        type='password' variant="outlined" fullWidth required
+                                        onChange={(e) => {
+                                            setPasswordRef(e.target.value);
+                                        }}
+                                    />
+                                </div>
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            name="checkedB"
+                                            color="primary"
+                                        />
+                                    }
+                                    label="Recuerdame"
+                                />
+                                <Button type='submit' color='primary' variant="contained" style={btnstyle} fullWidth onClick={iniciarSesion}>Iniciar sesion</Button>
+                                <Divider >Inicia con tus cuentas</Divider>
+                                <center>
+
+                                    <div className='googleAuth' onClick={loginGoole}>
+                                        <span>
+                                            <img src={IconGoole} alt="Icono de Goole" height={'30'} className='icono' />
+                                        </span>
+                                        <Button >Inicia con Google</Button>
+                                    </div>
+                                </center>
+
+
+                                <Typography >
+                                    <Link href="#" >
+                                        Olvidaste tu contraseña ?
+                                    </Link>
+                                </Typography>
+                                <Typography > No tienes cuenta aun?
+                                    <Button variant="text" onClick={() => navigateTo('/register')} >
+                                        Registrate
+                                    </Button>
+                                </Typography>
+                            </Paper>
+                        </div>
+
+                    </Grid>
+                </Grid>
+                <center><h5>Puedes acceder a tu historial de pruebas realizadas</h5></center>
+            </Box>
+        </div>
+
+    )
 }

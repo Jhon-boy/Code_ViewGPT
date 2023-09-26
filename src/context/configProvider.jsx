@@ -15,16 +15,6 @@ export const ConfigProvider = ({ children }) => {
 
     }`);
     const [usuario, setUsuario] = useState(null);
-    // const logeo = () =>{
-    onAuthStateChanged(auth, (usuarioFirebase) => {
-        if (usuarioFirebase) {
-            setUsuario(usuarioFirebase);
-        } else {
-            setUsuario('Anonimo');
-        }
-    });
-
-    // }
 
     useEffect(() => {
         onAuthStateChanged(auth, (usuarioFirebase) => {

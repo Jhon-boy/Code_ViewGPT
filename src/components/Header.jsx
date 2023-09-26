@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Outlet } from 'react-router-dom'
 import {
   AppBar,
@@ -8,27 +8,65 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
-  Button
+  Button,
+  MenuItem,
+  Menu
 } from "@mui/material";
 import { configContext } from '../context/configContext';
 import DrawerComp from "./Drawer";
 import { Footer } from "./Footer";
 import { useNavigate } from 'react-router-dom'
-
+import { getAuth, signOut } from "firebase/auth";
+import Swal from "sweetalert2";
 
 export const Header = () => {
-  const { usuario, setUsuario } = useContext(configContext)
+  const auth = getAuth();
+
+  // valores globales
+  const { usuario } = useContext(configContext)
 
   const [value, setValue] = useState();
   const theme = useTheme();
-  console.log(theme);
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
-  console.log(isMatch);
   const history = useNavigate();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const navigateTo = (path) => {
     history(path);
   }
+  // salida 
+  const logOut = () => {
+    Swal.fire({
+      title: 'Cerrar Sesión?',
+      text: "¿Estas seguro de salir?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, salir!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        signOut(auth)
+          .then(() => {
+            localStorage.removeItem('credenciales');
+          }).catch((error) => {
+            console.log(error);
+          });
+      }
+    })
+  }
+
+  useEffect(() => {
+    console.log('USUARIO', JSON.stringify(usuario));
+  }, [usuario]);
 
   return (
     <>
@@ -69,7 +107,30 @@ export const Header = () => {
               {usuario === null || usuario === 'Anonimo' ? (
                 <Button onClick={() => navigateTo('/login')}>Iniciar Sesión</Button>
               ) : (
-                <Button>{usuario}</Button>
+                <div>
+                  <Button
+                    id="basic-button"
+                    aria-controls={open ? 'basic-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                    onClick={handleClick}
+                  >
+                    {usuario.email}
+                  </Button>
+                  <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                      'aria-labelledby': 'basic-button',
+                    }}
+                  >
+                    <MenuItem onClick={handleClose}>Perfil</MenuItem>
+                    <MenuItem onClick={handleClose}>Mi Historial</MenuItem>
+                    <MenuItem onClick={logOut}>Salir</MenuItem>
+                  </Menu>
+                </div>
               )}
             </>
           )}

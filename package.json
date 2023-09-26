@@ -2,16 +2,21 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@google-ai/generativelanguage": "^1.0.1",
     "@mui/icons-material": "^5.14.8",
     "@mui/material": "^5.14.8",
     "@uiw/codemirror-extensions-langs": "^4.21.13",
     "@uiw/codemirror-theme-vscode": "^4.21.13",
     "@uiw/react-codemirror": "^4.21.13",
     "firebase": "^10.4.0",
+    "formik": "^2.4.5",
+    "google-auth-library": "^9.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",
-    "react-syntax-highlighter": "^15.5.0"
+    "react-syntax-highlighter": "^15.5.0",
+    "sweetalert2": "^11.7.28",
+    "yup": "^1.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
