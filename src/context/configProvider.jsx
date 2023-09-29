@@ -10,10 +10,8 @@ export const ConfigProvider = ({ children }) => {
     // basic atributes for all aplication
     const [lenguage, setLenguaje] = useState("java");
     const [descripcion, setDescripcion] = useState("Comparacion de fechas");
-    const [codigo, setCodigo] = useState(`  const onClickLoadMore = () => {
-        setOffset(offset + 50);
-
-    }`);
+    const [codigo, setCodigo] = useState("");
+    const [tool, setTool] =  useState("Jest");
     const [usuario, setUsuario] = useState(null);
 
     useEffect(() => {
@@ -38,7 +36,9 @@ export const ConfigProvider = ({ children }) => {
                 codigo,
                 setCodigo,
                 setUsuario,
-                usuario
+                usuario,
+                tool, 
+                setTool
             }}>
             {children}
         </configContext.Provider>

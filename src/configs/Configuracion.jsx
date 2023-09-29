@@ -14,13 +14,12 @@ import { getLenguajes } from '../API/API_LENGUAJE';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import { generarCodigo } from '../services/ApiController'
-import { tools } from '../pure/Items';
+import { tooles } from '../pure/Items';
 
 export const Context = () => {
     const [Cargarlanguages, setCargarLanguages] = React.useState([]);
-    const [cargarTools, setCargarTools] = React.useState([]);
     const [open, setOpen] = React.useState(false);
-    const { setLenguaje, setDescripcion, lenguage } = React.useContext(configContext)
+    const { setLenguaje,lenguage, setDescripcion,descripcion,  setTool , tool, codigo} = React.useContext(configContext)
     const [loading, setLoading] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -33,8 +32,22 @@ export const Context = () => {
     };
 
     const GenerateCode = async () => {
-        const response = await generarCodigo(lenguage);
+        const response = await generarCodigo(lenguage, descripcion, tool, codigo);
+        console.log(response)
     }
+
+    const renderOption = (option) => {
+        if (option && option.tools) {
+            return (
+                <div>
+                    <strong>{option.language}</strong>
+                    <p>Tools: {option.tools.join(', ')}</p>
+                </div>
+            );
+        }
+        return null;
+    };
+    
     React.useEffect(() => {
         setLoading(true);
         getLenguajes()
@@ -68,9 +81,9 @@ export const Context = () => {
                     />
                     <h4 className='titulo'>Seleccione la herramienta:</h4>
                     <Autocomplete
-                        options={Cargarlanguages}
-                        getOptionLabel={(option) => cargarTools.name}
-                        onChange={(event, selectedValue) => setLenguaje(selectedValue.name)}
+                        options={tooles}
+                        getOptionLabel={(option) => option.tools}
+                        onChange={(event, selectedValue) => setTool(selectedValue.tools)}
                         renderInput={(params) => <TextField {...params} label="Lenguaje" />}
                     />
                     <DialogContentText>

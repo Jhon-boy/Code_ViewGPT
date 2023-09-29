@@ -1,13 +1,24 @@
-import {URL_API} from '../API/OPEN_AI';
+import { URL_API } from '../API/OPEN_AI';
 
-export const generarCodigo = async (lenguage) => {
+export const generarCodigo = async (language, descripcion, tool, codigo) => {
+    // console.log('LENGUAJE: '+language)
+    // console.log('DESCRIPCIÓN: '+descripcion)
+    // console.log('TOOL: '+tool)
+    // console.log('CODIGO: '+codigo)
     try {
+        const requestBody = {
+            language,
+            descripcion,
+            tool,
+            codigo
+        };
+
         const response = await fetch(`${URL_API}/response`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(lenguage)
+            body: JSON.stringify(requestBody)
         });
 
         if (!response.ok) {
