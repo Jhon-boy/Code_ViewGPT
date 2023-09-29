@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { auth, provider } from '../services/firebase'
 import { configContext } from '../context/configContext';
 
+
 export const Login = () => {
 
     const { setUsuario } = useContext(configContext);
@@ -26,6 +27,7 @@ export const Login = () => {
     const theme = useTheme();
     const isMatch = useMediaQuery(theme.breakpoints.down("md"));
 
+    const isDisabled = emailRef =='' || passwordRef == '';
 
     // navegador 
     //Funcion de routers para la navegacion 
@@ -87,13 +89,14 @@ export const Login = () => {
 
     }
 
+    
     return (
         <div className='login'>
-            <Box sx={{ flexGrow: 2 }} height="100vh">
+        <Button onClick={() => navigateTo('/')} style={{marginLeft:'40px', marginTop: '10px'}}>Volver</Button>
+            <Box sx={{ flexGrow: 2 }} height="103vh">
                 <Grid container spacing={3}>
                     {isMatch ? (
                         <>
-                            <h5>Ingresa  Code View</h5>
                         </>
                     ) : (<>
                         <Grid item xs={12} md={6}>
@@ -137,8 +140,12 @@ export const Login = () => {
                                     }
                                     label="Recuerdame"
                                 />
-                                <Button type='submit' color='primary' variant="contained" style={btnstyle} fullWidth onClick={iniciarSesion}>Iniciar sesion</Button>
-                                <Divider >Inicia con tus cuentas</Divider>
+                                <Button type='submit' color='primary' variant="contained"
+                                    style={btnstyle} fullWidth
+                                    onClick={iniciarSesion}
+                                    disabled={isDisabled}
+                                    >Iniciar sesion</Button>
+                                <Divider ><span className='spanText'>Inicia con</span></Divider>
                                 <center>
 
                                     <div className='googleAuth' onClick={loginGoole}>

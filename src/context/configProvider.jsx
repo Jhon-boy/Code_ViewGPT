@@ -8,11 +8,12 @@ const auth = getAuth(app);
 export const ConfigProvider = ({ children }) => {
 
     // basic atributes for all aplication
-    const [lenguage, setLenguaje] = useState("java");
+    const [lenguage, setLenguaje] = useState("Java");
     const [descripcion, setDescripcion] = useState("Comparacion de fechas");
     const [codigo, setCodigo] = useState("");
     const [tool, setTool] =  useState("Jest");
     const [usuario, setUsuario] = useState(null);
+    const [response, setResponse] = useState('');
 
     useEffect(() => {
         onAuthStateChanged(auth, (usuarioFirebase) => {
@@ -38,7 +39,9 @@ export const ConfigProvider = ({ children }) => {
                 setUsuario,
                 usuario,
                 tool, 
-                setTool
+                setTool,
+                response, 
+                setResponse
             }}>
             {children}
         </configContext.Provider>

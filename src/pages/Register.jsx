@@ -96,6 +96,7 @@ export const Register = () => {
 
   return (
     <div className='login'>
+    <Button onClick={() => navigateTo('/login')} style={{marginLeft:'40px', marginTop: '10px'}}>Volver</Button>
       <Box sx={{ flexGrow: 2 }} height="100vh">
         <Grid container spacing={3}>
           {isMatch ? (
@@ -184,9 +185,6 @@ export const Register = () => {
                       </Button>
 
                       <Typography>
-                        <Button variant="text" onClick={() => navigateTo('/login')}>
-                          Volver
-                        </Button>
                       </Typography>
 
                     </Form>

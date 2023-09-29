@@ -168,3 +168,6 @@ button:focus-visible {
 .icono{
  margin: 10px 30px 5px 15px;
 }
+.spanText{
+  color: gray;
+}
