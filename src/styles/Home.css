@@ -8,7 +8,8 @@
     padding: 10px 20px 5px 20px;
     width: auto;
     height: auto; 
-    min-height: 95vh;
+    max-width: 95vmax;
+    min-width: 95%;
     border: 1px solid rgb(113, 111, 111);
 }
 .box {
@@ -24,13 +25,32 @@
         width: 55%;
     }
 .codeMirrow{
-    max-height: 520px; /* Establece la altura máxima que desees */
+    max-height: 500px; /* Establece la altura máxima que desees */
     overflow: auto; /* Agrega una barra de desplazamiento si el contenido es más alto que la altura máxima */
     border-radius: 5px;
+    
 }
+/* Estilo para las barras de desplazamiento */
+.codeMirrow::-webkit-scrollbar {
+    width: 6px; 
+    height: 20px;
+  }
+  
+  .codeMirrow::-webkit-scrollbar-thumb {
+
+    background-color: #f0f0f0; 
+  }
+  
+  .codeMirrow::-webkit-scrollbar-track {
+    background-color: #888; 
+  }
+  
+   
 @media (max-width: 740px) {
     /* Cuando la pantalla es 768px o menos, cambia a una sola columna */
     .box {
         width: 60%;
     }
 }
+
+ 

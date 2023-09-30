@@ -14,7 +14,8 @@ export const ConfigProvider = ({ children }) => {
     const [tool, setTool] =  useState("Jest");
     const [usuario, setUsuario] = useState(null);
     const [response, setResponse] = useState('');
-
+    const [loading, setLoading] = useState(false);
+    
     useEffect(() => {
         onAuthStateChanged(auth, (usuarioFirebase) => {
             if (usuarioFirebase) {
@@ -41,7 +42,9 @@ export const ConfigProvider = ({ children }) => {
                 tool, 
                 setTool,
                 response, 
-                setResponse
+                setResponse,
+                loading, 
+                setLoading
             }}>
             {children}
         </configContext.Provider>

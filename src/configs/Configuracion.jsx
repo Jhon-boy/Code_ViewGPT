@@ -19,45 +19,37 @@ import { tooles } from '../pure/Items';
 export const Context = () => {
     const [Cargarlanguages, setCargarLanguages] = React.useState([]);
     const [open, setOpen] = React.useState(false);
-    const { setLenguaje,lenguage, setDescripcion,descripcion,  setTool , tool, codigo} = React.useContext(configContext)
-    const [loading, setLoading] = React.useState(false);
+    const { setLenguaje, lenguage, setDescripcion, descripcion, setTool, tool, codigo, setResponse, setLoading } = React.useContext(configContext)
+    const isDisabled = lenguage == '' || tool == '';   
 
     const handleClickOpen = () => {
+
         setOpen(true);
     };
 
     const handleClose = () => {
-        console.log('SELECIONADO' + lenguage);
+        // console.log('SELECIONADO' + lenguage);
         setOpen(false);
     };
 
     const GenerateCode = async () => {
-        const response = await generarCodigo(lenguage, descripcion, tool, codigo);
-        console.log(response)
+        setLoading(true); // change the loading state , and shows the loeader at main page
+        try {
+            const response = await generarCodigo(lenguage, descripcion, tool, codigo); // get the response
+            console.log(response.message);
+            setResponse(response.message); // Save the answer 
+        } finally {
+            setLoading(false);  // Change to false 
+        }
     }
 
-    const renderOption = (option) => {
-        if (option && option.tools) {
-            return (
-                <div>
-                    <strong>{option.language}</strong>
-                    <p>Tools: {option.tools.join(', ')}</p>
-                </div>
-            );
-        }
-        return null;
-    };
-    
     React.useEffect(() => {
-        setLoading(true);
         getLenguajes()
             .then(data => {
                 setCargarLanguages(data);
-                setLoading(false);
             })
             .catch(error => {
                 console.error('Error al obtener los lenguajes:', error);
-                setLoading(false);
             });
     }, []);
 
@@ -96,7 +88,7 @@ export const Context = () => {
                         onChange={(e) => setDescripcion(e.target.value)}
                         style={{
                             width: '95%',
-                            minHeight: '40px',
+                            minHeight: '30px',
                             minWidth: '350px',
                             fontSize: '14px',
                             border: '1px solid #ccc',
@@ -108,8 +100,11 @@ export const Context = () => {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button variant="outlined" startIcon={<DeleteIcon />} onClick={handleClose}>Cancenlar</Button>
-                    <Button variant="contained" endIcon={<SendIcon />} onClick={handleClose}>Continuar</Button>
+                    <Button variant="outlined" startIcon={<DeleteIcon />} onClick={handleClose}>Cancelar</Button>
+                    <Button variant="contained" 
+                    endIcon={<SendIcon />} onClick={handleClose}
+                    disabled={isDisabled}
+                    >Continuar</Button>
                 </DialogActions>
             </Dialog>
         </div>
