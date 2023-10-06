@@ -22,6 +22,7 @@ export default function CodeTextarea({ code, language }) {
         ) : (
           <div>
             <h3>Aun no haz hecho ninguna prueba :(</h3>
+            <center><Options /></center>
             <img src={WITHOUT} alt="Respuesta vacía"
               width="500"
               height="400"></img>

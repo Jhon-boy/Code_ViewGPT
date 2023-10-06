@@ -15,12 +15,15 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import { generarCodigo } from '../services/ApiController'
 import { tooles } from '../pure/Items';
+import Tooltip from '@mui/material/Tooltip';
+
 
 export const Context = () => {
     const [Cargarlanguages, setCargarLanguages] = React.useState([]);
     const [open, setOpen] = React.useState(false);
-    const { setLenguaje, lenguage, setDescripcion, descripcion, setTool, tool, codigo, setResponse, setLoading } = React.useContext(configContext)
-    const isDisabled = lenguage == '' || tool == '';   
+    const { setLenguaje, lenguage, setDescripcion, descripcion, setTool, tool, codigo, setResponse, setLoading, setCodigo } = React.useContext(configContext)
+    const isDisabled = lenguage == '' || tool == '';
+    const isDisabledConfig = lenguage == '' || tool == '' || codigo == '';
 
     const handleClickOpen = () => {
 
@@ -28,21 +31,34 @@ export const Context = () => {
     };
 
     const handleClose = () => {
-        // console.log('SELECIONADO' + lenguage);
+        setDescripcion('');
+        setTool('');
+        setLenguaje('');
         setOpen(false);
     };
-
+    const next = () => {
+        setOpen(false);
+    }
     const GenerateCode = async () => {
         setLoading(true); // change the loading state , and shows the loeader at main page
         try {
             const response = await generarCodigo(lenguage, descripcion, tool, codigo); // get the response
-            console.log(response.message);
+            // console.log(response.message);
             setResponse(response.message); // Save the answer 
+            setDescripcion(''); // Clear the descripcion
+            setTool(''); // Clear the tool
+            setLenguaje('');// and finally clear the code
+            setCodigo(null);
         } finally {
             setLoading(false);  // Change to false 
         }
     }
-
+    const clearBox = () => {
+        setCodigo(null);
+        setDescripcion('');
+        setTool('');
+        setLenguaje('');
+    }
     React.useEffect(() => {
         getLenguajes()
             .then(data => {
@@ -57,8 +73,23 @@ export const Context = () => {
         <div>
             <div className='btnStack'>
                 <Stack spacing={10} direction="row">
-                    <Button size="large" variant="contained" onClick={handleClickOpen}>Configurar</Button>
-                    <Button size="large" variant="outlined" onClick={GenerateCode}>Generar Pruebas</Button>
+                    {codigo ? (
+                        <Tooltip title="Limpiar campos">
+                            <div className='clear-btn' onClick={clearBox}>
+                                <img src='https://cdn-icons-png.flaticon.com/512/4021/4021663.png'
+                                    alt='icono de barrido'
+                                    height={37}
+                                    width={42}
+                                />
+                            </div>
+                        </Tooltip>
+                    ) : null}
+
+                    <Button size="large" variant="outlined" onClick={handleClickOpen}>Configurar</Button>
+                    <Button size="large" variant="outlined"
+                        onClick={GenerateCode}
+                        disabled={isDisabledConfig}
+                    >Generar Pruebas</Button>
                 </Stack>
             </div>
             <Dialog open={open} onClose={handleClose}>
@@ -87,9 +118,9 @@ export const Context = () => {
                         placeholder="Esta funciona ayuda ...."
                         onChange={(e) => setDescripcion(e.target.value)}
                         style={{
-                            width: '95%',
+                            width: '85%',
                             minHeight: '30px',
-                            minWidth: '350px',
+                            minWidth: '320px',
                             fontSize: '14px',
                             border: '1px solid #ccc',
                             borderRadius: '4px',
@@ -101,9 +132,9 @@ export const Context = () => {
                 </DialogContent>
                 <DialogActions>
                     <Button variant="outlined" startIcon={<DeleteIcon />} onClick={handleClose}>Cancelar</Button>
-                    <Button variant="contained" 
-                    endIcon={<SendIcon />} onClick={handleClose}
-                    disabled={isDisabled}
+                    <Button variant="contained"
+                        endIcon={<SendIcon />} onClick={next}
+                        disabled={isDisabled}
                     >Continuar</Button>
                 </DialogActions>
             </Dialog>

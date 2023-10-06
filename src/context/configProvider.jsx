@@ -8,10 +8,10 @@ const auth = getAuth(app);
 export const ConfigProvider = ({ children }) => {
 
     // basic atributes for all aplication
-    const [lenguage, setLenguaje] = useState("Java");
-    const [descripcion, setDescripcion] = useState("Comparacion de fechas");
-    const [codigo, setCodigo] = useState("");
-    const [tool, setTool] =  useState("Jest");
+    const [lenguage, setLenguaje] = useState("");
+    const [descripcion, setDescripcion] = useState("");
+    const [codigo, setCodigo] = useState('');
+    const [tool, setTool] =  useState('');
     const [usuario, setUsuario] = useState(null);
     const [response, setResponse] = useState('');
     const [loading, setLoading] = useState(false);
