@@ -26,7 +26,6 @@ export const Context = () => {
     const isDisabledConfig = lenguage == '' || tool == '' || codigo == '';
 
     const handleClickOpen = () => {
-
         setOpen(true);
     };
 
@@ -43,12 +42,8 @@ export const Context = () => {
         setLoading(true); // change the loading state , and shows the loeader at main page
         try {
             const response = await generarCodigo(lenguage, descripcion, tool, codigo); // get the response
-            // console.log(response.message);
+            
             setResponse(response.message); // Save the answer 
-            setDescripcion(''); // Clear the descripcion
-            setTool(''); // Clear the tool
-            setLenguaje('');// and finally clear the code
-            setCodigo(null);
         } finally {
             setLoading(false);  // Change to false 
         }
@@ -93,7 +88,6 @@ export const Context = () => {
                 </Stack>
             </div>
             <Dialog open={open} onClose={handleClose}>
-                <center> <DialogTitle>Configuremos tu código!!</DialogTitle></center>
                 <DialogContent>
                     <h4 className='titulo'>Seleccione el lenguaje:</h4>
                     <Autocomplete

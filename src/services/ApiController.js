@@ -1,13 +1,10 @@
 import { URL_API } from '../API/OPEN_AI';
 
-export const generarCodigo = async (language, descripcion, tool, codigo) => {
-    // console.log('LENGUAJE: '+language)
-    // console.log('DESCRIPCIÓN: '+descripcion)
-    // console.log('TOOL: '+tool)
-    // console.log('CODIGO: '+codigo)
+export const generarCodigo = async (lenguage, descripcion, tool, codigo) => {
+
     try {
         const requestBody = {
-            language,
+            lenguage,
             descripcion,
             tool,
             codigo

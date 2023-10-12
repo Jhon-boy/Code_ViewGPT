@@ -3,8 +3,10 @@ import { getAuth, getRedirectResult, GoogleAuthProvider } from "firebase/auth";
 import { db } from "./firebase"
 
 
-export const AñadirUsuario = user => {
-  return addDoc(collection(db, 'usuarios'), user);
+export const GuardarRegistro = registro => {
+  console.log(JSON.stringify(registro));
+  // return addDoc(collection(db, 'registros'), registro);
+  return true;
 }
 
 export const iniciarConGoogle = () => {

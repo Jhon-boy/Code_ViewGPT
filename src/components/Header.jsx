@@ -66,6 +66,7 @@ export const Header = () => {
 
   useEffect(() => {
     console.log('USUARIO', JSON.stringify(usuario));
+    // console.log('UID', JSON.stringify(usuario.uid));
   }, [usuario]);
 
   return (

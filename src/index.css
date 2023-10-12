@@ -183,3 +183,36 @@ button:focus-visible {
   border-bottom: 3px solid gray;
   cursor: pointer;
 }
+.container-navigation {
+  margin-top: 10px;
+  font-size: 10px;
+width: auto;
+}
+
+.bottomNavigation {
+  color: white;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.navItem {
+  border: 1px solid rgb(144, 139, 139);
+  border-radius: 4px;
+  padding: 10px;
+  margin-right: 5px;
+  max-height: min-content;
+  width: 105px;
+}
+.navItem:hover{
+  transition: 0.1s;
+  color: rgb(22, 123, 218);
+  border: 2px solid rgb(22, 123, 218);
+  cursor: pointer;
+
+}
+
+.label {
+  margin-top: -3px;
+}

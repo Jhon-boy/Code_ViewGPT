@@ -21,8 +21,7 @@ export default function CodeTextarea({ code, language }) {
 
         ) : (
           <div>
-            <h3>Aun no haz hecho ninguna prueba :(</h3>
-            <center><Options /></center>
+            <center><h5>Aun no haz hecho ninguna prueba :(</h5></center>
             <img src={WITHOUT} alt="Respuesta vacía"
               width="500"
               height="400"></img>
@@ -31,8 +30,8 @@ export default function CodeTextarea({ code, language }) {
         }
       </div>
       {response ? (
-        <div style={{ display: 'flex' }}>
-          <Options />
+        <div>
+         <center><Options /></center> 
         </div>
       ) : (
         <span></span>

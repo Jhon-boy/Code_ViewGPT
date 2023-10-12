@@ -15,6 +15,7 @@ export const ConfigProvider = ({ children }) => {
     const [usuario, setUsuario] = useState(null);
     const [response, setResponse] = useState('');
     const [loading, setLoading] = useState(false);
+
     
     useEffect(() => {
         onAuthStateChanged(auth, (usuarioFirebase) => {
