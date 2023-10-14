@@ -7,7 +7,8 @@ import WITHOUT from '../services/WITHOUT.png'
 import { Options } from './options';
 
 export default function CodeTextarea({ code, language }) {
-  const { lenguage, tool, response } = useContext(configContext)
+  const { lenguage, tool, response, setResponse } = useContext(configContext)
+  
   return (
     <>
       <div className='codeMirrow'>

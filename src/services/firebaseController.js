@@ -1,12 +1,11 @@
-import { addDoc, collection, getDocs } from "firebase/firestore"
+import { collection, addDoc } from "firebase/firestore"; 
 import { getAuth, getRedirectResult, GoogleAuthProvider } from "firebase/auth";
 import { db } from "./firebase"
 
 
-export const GuardarRegistro = registro => {
-  console.log(JSON.stringify(registro));
-  // return addDoc(collection(db, 'registros'), registro);
-  return true;
+export const GuardarRegistro = async (registro) => {
+  const docRef = await addDoc(collection(db, 'registros'), registro)
+  return docRef;
 }
 
 export const iniciarConGoogle = () => {
