@@ -21,6 +21,7 @@ function App() {
           <Route path='/help' element={<Help />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/historial' element={<Historial />} />
+          
         </Route>
       </Route>
 

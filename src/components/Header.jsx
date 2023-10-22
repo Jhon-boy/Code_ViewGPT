@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { Outlet } from 'react-router-dom'
+import { Outlet , Link} from 'react-router-dom'
 import {
   AppBar,
   Tab,
@@ -100,7 +100,7 @@ export const Header = () => {
 
                 onChange={(e, value) => setValue(value)}
               >
-                <Tab label="Home" />
+                <Link to='/'>  <Tab label="Home" /></Link>
                 <Tab label="Informacíon" />
                 <Tab label="¿Quienes somos?" />
                 <Tab label="Contactos" />
@@ -128,7 +128,9 @@ export const Header = () => {
                     }}
                   >
                     <MenuItem onClick={handleClose}>Perfil</MenuItem>
-                    <MenuItem onClick={handleClose}>Mi Historial</MenuItem>
+                    <MenuItem onClick={handleClose}>
+                    <Link to='/historial'>Historial</Link>
+                    </MenuItem>
                     <MenuItem onClick={logOut}>Salir</MenuItem>
                   </Menu>
                 </div>

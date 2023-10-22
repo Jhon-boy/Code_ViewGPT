@@ -1,7 +1,11 @@
+import { ChatApp } from "./ChatApp "
+import '../styles/Chat.css'
 
 
 export const Historial = () => {
   return (
-    <div>Historial</div>
+    <div className="App">
+      <ChatApp />
+    </div>
   )
 }

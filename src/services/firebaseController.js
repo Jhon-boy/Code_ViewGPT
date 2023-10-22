@@ -1,13 +1,28 @@
-import { collection, addDoc } from "firebase/firestore"; 
+import { collection, addDoc , query, where, getDocs} from "firebase/firestore"; 
 import { getAuth, getRedirectResult, GoogleAuthProvider } from "firebase/auth";
 import { db } from "./firebase"
 
-
+// Guardamos en la base de datos 
 export const GuardarRegistro = async (registro) => {
   const docRef = await addDoc(collection(db, 'registros'), registro)
   return docRef;
 }
 
+
+// Obtenemos los registros 
+export const obtenerRegistros = async (usuario) => {
+  const q = query(collection(db, "registros"), where("usuario", "==", usuario));
+  const querySnapshot = await getDocs(q);
+  const registros = [];
+
+  querySnapshot.forEach((doc) => {
+    registros.push({ id: doc.id, data: doc.data() });
+  });
+
+  return registros;
+};
+
+// Sign In with Google Auth, is an option about login  
 export const iniciarConGoogle = () => {
   const auth = getAuth();
   getRedirectResult(auth)

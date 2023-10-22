@@ -10,6 +10,7 @@ import MuiAlert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
 import { GuardarRegistro } from '../services/firebaseController';
+import { green } from '@mui/material/colors';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
