@@ -4,6 +4,10 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import BuildIcon from '@mui/icons-material/Build';
+import CodeIcon from '@mui/icons-material/Code';
+import CommentIcon from '@mui/icons-material/Comment';
 
 export const ChatResponse = () => {
   const [response] = useState({
@@ -32,14 +36,29 @@ public ResponseEntity eliminarMedico(@PathVariable Long id) {
     
 }`})
   return (
-    <div className="chat-container">
+    <div className="chat-containe">
       <div className='Detail-container'>
-        <div>
-          <h4 className='titles-chat'>Descripcion: {response.titulo}</h4>
-          <h4 className='titles-chat'>Lenguaje: {response.lenguaje}</h4>
-          <h4 className='titles-chat'>Herramienta: {response.Herramienta}</h4>
-          <h4 className='titles-chat'>Fecha: {response.fecha_creacion}</h4>
+        <div className="chat-info">
+          <div className="chat-info-row">
+            <div className="time-icon">
+              <CodeIcon />
+              <span className="chat-info-value">{response.lenguaje}</span>
+            </div>
+            <div className="time-icon">
+              <BuildIcon />
+              <span className="chat-info-value">{response.Herramienta}</span>
+            </div>
+            <div className="time-icon">
+              <CalendarMonthIcon />
+              <span className="chat-info-value">{response.fecha_creacion}</span>
+            </div>
+          </div>
+          <div className="time-icon">
+            <CommentIcon />
+            <span className="chat-info-value">{response.titulo}</span>
+          </div>
         </div>
+
         <div>
           <Box sx={{ flexGrow: 2 }}>
             <Grid container spacing={3}>

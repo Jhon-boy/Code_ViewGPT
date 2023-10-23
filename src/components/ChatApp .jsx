@@ -19,16 +19,17 @@ export const ChatApp = () => {
 
   const obtenerChats = async () => {
     try {
-      // Llamar a la función para obtener registros
+
       const registros = await obtenerRegistros(JSON.stringify(usuario.uid));
 
-      // Extraer los datos de cada registro y actualizar el estado 'chats'
       const nuevosChats = registros.map((registro) => registro.data);
+
       setChats(nuevosChats);
+      
     } catch (error) {
       setLoeader(false);
     } finally {
-      setLoeader(false); // Deshabilita el loader después de intentar obtener los chats
+      setLoeader(false); 
     }
   };
 

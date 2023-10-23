@@ -25,11 +25,12 @@
         width: 55%;
     }
 .codeMirrow{
-    max-height: 500px; /* Establece la altura máxima que desees */
-    overflow: auto; /* Agrega una barra de desplazamiento si el contenido es más alto que la altura máxima */
+    max-height: 500px; 
+    overflow: auto; 
     border-radius: 5px;
     
 }
+
 /* Estilo para las barras de desplazamiento */
 .codeMirrow::-webkit-scrollbar {
     width: 6px; 
@@ -38,7 +39,7 @@
   
   .codeMirrow::-webkit-scrollbar-thumb {
 
-    background-color: #f0f0f0; 
+    background-color: #f52222; 
   }
   
   .codeMirrow::-webkit-scrollbar-track {
