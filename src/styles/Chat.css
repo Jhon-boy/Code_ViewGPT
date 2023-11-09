@@ -18,8 +18,8 @@
     min-height: 520px;
     border-radius: 7px;
     margin-bottom: 2%;
-  }
-  
+    }
+    
   .chat-titles {
     width: 250px;
     margin-right: 20px;
@@ -30,7 +30,7 @@
   
   .chat-content {
     width: 77%;
-    border: 1px solid #ccc;
+    border-left: 1px solid #ccc;
     padding: 10px;
     padding-top: 0; 
   }

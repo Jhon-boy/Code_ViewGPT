@@ -72,7 +72,6 @@ export const Options = () => {
       setCopy(true);
       setLoad(false);
     } catch (error) {
-      console.error('Error al intentar guardar el registro:', error);
       setBad(true);
     }
   }

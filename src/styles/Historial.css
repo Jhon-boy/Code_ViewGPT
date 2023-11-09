@@ -13,7 +13,7 @@
 }
 
 .message-header {
-  background-color: #525253;
+  background-color: #232222;
   /* Color de fondo del encabezado del mensaje */
   color: white;
   padding: 5px;
@@ -21,6 +21,9 @@
   border-top: 1px solid 5e5d5d;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
+  justify-content: space-between;
+  display: flex;
+  padding-left: 10px;
 }
 
 .message-content {
@@ -28,8 +31,7 @@
   border-radius: 5px;
   background-color: rgb(25, 25, 25);
   white-space: pre-wrap;
-  min-height: 300px;
-  max-height: 300px;
+  height: auto;
   overflow: auto;
 }
 
@@ -38,7 +40,9 @@
 }
 
 .chat-info {
-  padding: 10px; 
+  padding: 15px; 
+  border: 1px solid rgb(91, 91, 91);
+  border-radius: 4px;
 }
 
 .chat-info-row {
@@ -73,4 +77,11 @@
   color: #ede8e8;
   font-weight: normal;
   margin: 0;
+}
+.Icon-Copy{
+  cursor: pointer;
+  color: rgb(226, 27, 27);
+}
+.Icon-Copy{
+  color: white;
 }
