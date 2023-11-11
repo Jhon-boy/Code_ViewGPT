@@ -16,39 +16,17 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export const ChatResponse = () => {
+export const ChatResponse = ({chat}) => {
   const [open, setOpen] = React.useState(false);
   const [bad, setBad] = React.useState(false);
+  const timestamp = chat.fecha_creacion;
+  const fecha = new Date(timestamp.seconds * 1000); // Multiplica por 1000 para convertir segundos a milisegundos
 
-  const [response] = useState({
-    titulo: 'Funcion que ayuda a eliminar un medico',
-    lenguaje: 'JavaScript', Herramienta: 'Junit', fecha_creacion: '10 de octubre de 2023',
-    codigo_ingresado: ` @DeleteMapping("/{id}")
-@Transactional
-@Operation(summary = "Elimina un medico registrado - inactivo")
-public ResponseEntity eliminarMedico(@PathVariable Long id) {
-    Medico medico = medicoRepository.getReferenceById(id);
-    medico.desactivarMedico();
-    return ResponseEntity.noContent().build();
-}`, codigo_respuesta: ` @DeleteMapping("/{id}")
-@Transactional
-@Operation(summary = "Elimina un medico registrado - inactivo")
-public ResponseEntity eliminarMedico(@PathVariable Long id) {
-    Medico medico = medicoRepository.getReferenceById(id);
-    medico.desactivarMedico();
-    return ResponseEntity.noContent().build();
-
-    @Operation(summary = "Elimina un medico registrado - inactivo")
-public ResponseEntity eliminarMedico(@PathVariable Long id) {
-    Medico medico = medicoRepository.getReferenceById(id);
-    medico.desactivarMedico();
-    return ResponseEntity.noContent().build();
-    
-}`})
+  const formattedDate = `${fecha.getDate()}/${fecha.getMonth() + 1}/${fecha.getFullYear()}`;
 
   const copiar = () => {
     try {
-      navigator.clipboard.writeText(response.codigo_ingresado);
+      navigator.clipboard.writeText(chat.codigo_ingresado);
       setOpen(true);
     } catch (error) {
       setBad(true)
@@ -57,7 +35,7 @@ public ResponseEntity eliminarMedico(@PathVariable Long id) {
 
   const copiar2 = () => {
     try {
-      navigator.clipboard.writeText(response.codigo_respuesta);
+      navigator.clipboard.writeText(chat.codigo_respuesta);
       setOpen(true);
     } catch (error) {
       setBad(true)
@@ -79,20 +57,20 @@ public ResponseEntity eliminarMedico(@PathVariable Long id) {
             <div className="chat-info-row">
               <div className="time-icon">
                 <CodeIcon />
-                <span className="chat-info-value">{response.lenguaje}</span>
+                <span className="chat-info-value">{chat.lenguaje}</span>
               </div>
               <div className="time-icon">
                 <BuildIcon />
-                <span className="chat-info-value">{response.Herramienta}</span>
+                <span className="chat-info-value">{chat.herramienta}</span>
               </div>
               <div className="time-icon">
                 <CalendarMonthIcon />
-                <span className="chat-info-value">{response.fecha_creacion}</span>
+                <span className="chat-info-value">{formattedDate}</span>
               </div>
             </div>
             <div className="time-icon">
               <CommentIcon />
-              <span className="chat-info-value">{response.titulo}</span>
+              <span className="chat-info-value">{chat.titulo}</span>
             </div>
           </div>
 
@@ -111,7 +89,7 @@ public ResponseEntity eliminarMedico(@PathVariable Long id) {
                       <SyntaxHighlighter language="javascript"
                         style={vscDarkPlus}
                         customStyle={{ minHeight: '330px' }}>
-                        {response.codigo_ingresado}
+                        {chat.codigo_ingresado}
                       </SyntaxHighlighter>
                     </div>
                   </div>
@@ -127,7 +105,7 @@ public ResponseEntity eliminarMedico(@PathVariable Long id) {
                       <SyntaxHighlighter language="javascript"
                         style={vscDarkPlus}
                         customStyle={{ minHeight: '330px' }}>
-                        {response.codigo_respuesta}
+                        {chat.codigo_respuesta}
                       </SyntaxHighlighter>
                     </div>
                   </div>

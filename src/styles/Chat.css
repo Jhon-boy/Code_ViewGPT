@@ -8,7 +8,7 @@
   }
   
   .chat-title:hover {
-    background-color: #514f4f;
+    background-color: #413f3f;
   } 
   .chat-container {
     margin-top: 7%;
@@ -39,4 +39,11 @@
     top: 50%;
     left: 8%;
     transform: translate(-50%, -50%);
+  }
+
+  .delete-icon{
+    color: gray;
+  }
+  .delete-icon:hover{
+    color: red;
   }

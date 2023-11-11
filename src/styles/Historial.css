@@ -31,8 +31,10 @@
   border-radius: 5px;
   background-color: rgb(25, 25, 25);
   white-space: pre-wrap;
-  height: auto;
+  max-height: 350px;
+  max-width: 500px;
   overflow: auto;
+  margin-top: 1.5px;
 }
 
 .Detail-container {

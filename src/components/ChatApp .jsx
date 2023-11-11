@@ -13,8 +13,9 @@ export const ChatApp = () => {
   const [contadorIntentos, setContadorIntentos] = useState(0);
   const [loeader, setLoeader] = useState(true);
 
-  const loadChat = (chatTitle) => {
-    setCurrentChat(chatTitle);
+  const loadChat = (chat) => {
+    setCurrentChat(chat);
+
   };
 
   const obtenerChats = async () => {
@@ -56,9 +57,9 @@ export const ChatApp = () => {
       </div>
       <div className="chat-content">
         {currentChat ? (
-          <ChatResponse />
-        ) : (
-          'Selecciona un chat.'
+          <ChatResponse chat={currentChat}/>
+        ) : ( 
+          'Selecciona un historial.'
         )}
       </div>
     </div>

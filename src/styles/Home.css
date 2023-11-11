@@ -30,8 +30,7 @@
     border-radius: 5px;
     
 }
-
-/* Estilo para las barras de desplazamiento */
+ 
 .codeMirrow::-webkit-scrollbar {
     width: 6px; 
     height: 20px;
@@ -39,7 +38,7 @@
   
   .codeMirrow::-webkit-scrollbar-thumb {
 
-    background-color: #f52222; 
+    background-color: #363c4b; 
   }
   
   .codeMirrow::-webkit-scrollbar-track {
