@@ -156,8 +156,8 @@ export const Login = () => {
                                 </center>
 
 
-                                <Typography >
-                                    <Link href="#" >
+                                <Typography onClick={() => navigateTo('/resetCount')}>
+                                    <Link className='text-important' >
                                         Olvidaste tu contraseña ?
                                     </Link>
                                 </Typography>

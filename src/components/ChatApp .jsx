@@ -15,41 +15,36 @@ export const ChatApp = () => {
 
   const loadChat = (chat) => {
     setCurrentChat(chat);
-
   };
 
   const obtenerChats = async () => {
     try {
-
       const registros = await obtenerRegistros(JSON.stringify(usuario.uid));
-
-      const nuevosChats = registros.map((registro) => registro.data);
-
+      const nuevosChats = registros.map((registro) => ({ ...registro.data, id: registro.id }));
       setChats(nuevosChats);
-      
     } catch (error) {
       setLoeader(false);
     } finally {
-      setLoeader(false); 
+      setLoeader(false);
     }
   };
 
   useEffect(() => {
     obtenerChats();
-  }, [contadorIntentos]);
+  }, []);
 
   return (
     <div className="chat-container">
       <div className="chat-titles">
-        <h4>Mi Historial</h4> 
+        <h4>Mi Historial</h4>
         {loeader ? ( // Muestra el loader mientras se carga
-        <div className='loader'>
-            <Waveform size={50}  color='white'/>
-        </div>
-          
+          <div className='loader'>
+            <Waveform size={50} color='white' />
+          </div>
+
         ) : chats.length > 0 ? (
-          chats.map((chat, index) => (
-            <ChatsTitle key={index} title={chat.titulo} onClick={() => loadChat(chat)} />
+          chats.map((chat) => (
+            <ChatsTitle key={chat.id} title={chat.titulo} id={chat.id} onClick={() => loadChat({ ...chat, id: chat.id })} />
           ))
         ) : (
           <p>No hay historial.</p>
@@ -57,8 +52,8 @@ export const ChatApp = () => {
       </div>
       <div className="chat-content">
         {currentChat ? (
-          <ChatResponse chat={currentChat}/>
-        ) : ( 
+          <ChatResponse chat={currentChat} />
+        ) : (
           'Selecciona un historial.'
         )}
       </div>

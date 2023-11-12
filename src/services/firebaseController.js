@@ -1,16 +1,17 @@
-import { collection, addDoc , query, where, getDocs} from "firebase/firestore"; 
-import { getAuth, getRedirectResult, GoogleAuthProvider } from "firebase/auth";
-import { db } from "./firebase"
+import { collection, addDoc, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { getAuth, getRedirectResult, GoogleAuthProvider, sendPasswordResetEmail  } from "firebase/auth";
+import { db, auth } from "./firebase"
 
-// Guardamos en la base de datos 
+// save in database
 export const GuardarRegistro = async (registro) => {
   const docRef = await addDoc(collection(db, 'registros'), registro)
   return docRef;
 }
 
 
-// Obtenemos los registros 
+// get our historial data
 export const obtenerRegistros = async (usuario) => {
+  
   const q = query(collection(db, "registros"), where("usuario", "==", usuario));
   const querySnapshot = await getDocs(q);
   const registros = [];
@@ -22,6 +23,17 @@ export const obtenerRegistros = async (usuario) => {
   return registros;
 };
 
+// Delete a specific collection
+  export const deleteCollections = async (collectionName, id) => {
+    console.log(`deleting ${collectionName} +++ ` + id);
+      try {
+        const documentoReferencia = doc(db, collectionName, id);
+        await deleteDoc(documentoReferencia);
+        return true
+      } catch (error) {
+        return false;
+      }
+  }
 // Sign In with Google Auth, is an option about login  
 export const iniciarConGoogle = () => {
   const auth = getAuth();
@@ -34,7 +46,7 @@ export const iniciarConGoogle = () => {
       // The signed-in user info.
       const user = result.user;
       // IdP data available using getAdditionalUserInfo(result)
-      // ...
+
     }).catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
@@ -43,6 +55,17 @@ export const iniciarConGoogle = () => {
       const email = error.customData.email;
       // The AuthCredential type that was used.
       const credential = GoogleAuthProvider.credentialFromError(error);
-      // ...
+
     });
 }
+
+export const resetPassword = async (correo) => {
+  console.log("EMAIL :" + correo);
+  try {
+    await sendPasswordResetEmail(auth, correo);
+    return { success: true };
+  } catch (error) {
+    console.log("ERROR: " + error.message)
+    return { success: false, errorMessage: error.message };
+  }
+} 

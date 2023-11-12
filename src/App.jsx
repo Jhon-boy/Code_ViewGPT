@@ -8,6 +8,7 @@ import { Profile } from './components/Profile';
 import { Historial } from './components/Historial';
 import { Error } from './pages/Error';
 import { Contact } from './pages/contact';
+import { RecuperarCuenta } from './pages/RecuperarCuenta';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
 
       <Route path='/register' element={<Register />} />
       <Route path='/contact' element={<Contact />} />
+      <Route path='/resetCount' element={<RecuperarCuenta />} />
       <Route path='*' element={<Error />} />
     </Routes>
   )
