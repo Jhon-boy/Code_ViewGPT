@@ -101,9 +101,10 @@ export const Header = () => {
                 onChange={(e, value) => setValue(value)}
               >
                 <Link to='/'>  <Tab label="Home" /></Link>
-                <Tab label="Informacíon" />
-                <Tab label="¿Quienes somos?" />
-                <Tab label="Contactos" />
+
+                <Link to='infoPage'> <Tab label="Informacíon" /> </Link>
+                <Link to='contact'> <Tab label="Contactos" />  </Link>  
+                <Link to='help'> <Tab label="Ayuda" />  </Link>  
               </Tabs>
               {usuario === null || usuario === 'Anonimo' ? (
                 <Button onClick={() => navigateTo('/login')}>Iniciar Sesión</Button>

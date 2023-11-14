@@ -9,26 +9,28 @@ import { Historial } from './components/Historial';
 import { Error } from './pages/Error';
 import { Contact } from './pages/contact';
 import { RecuperarCuenta } from './pages/RecuperarCuenta';
+import {Information} from './pages/Information'
 
 function App() {
 
 
   return (
     <Routes>
-      <Route path='/login' element={<Login />} />
       <Route >
         <Route path='/' element={<Header />}>
           <Route index  element={<Home />} />
           <Route path='/help' element={<Help />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/historial' element={<Historial />} />
-          
+          <Route path='/infoPage' element={<Information /> } />
+          <Route path='/contact' element={<Contact /> } />
+
         </Route>
       </Route>
-
+      <Route path='/login' element={<Login />} />
       <Route path='/register' element={<Register />} />
-      <Route path='/contact' element={<Contact />} />
       <Route path='/resetCount' element={<RecuperarCuenta />} />
+      <Route path='/help' element={<Help />} />
       <Route path='*' element={<Error />} />
     </Routes>
   )

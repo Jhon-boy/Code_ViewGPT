@@ -19,6 +19,7 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
 }
@@ -47,14 +48,17 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-.btnStack{
+
+.btnStack {
   padding: 0.6em 1.2em;
   margin-left: 10%;
   margin: 10px 0 20px 0;
@@ -65,73 +69,91 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
   }
 }
-.footer{
+
+.footer {
   width: 100%;
-  margin-top:   10px;
+  margin-top: 10px;
 }
-.footer-inicio{
+
+.footer-inicio {
   background-color: #2999f5;
   color: white;
   font-size: 15px;
-  
+
 }
-.footer-inicio{
+
+.footer-inicio {
   min-height: 75px;
   justify-content: space-between;
 }
-.footer-contacts{
+
+.footer-contacts {
   padding-top: 20px;
   padding-left: 40px;
   background-color: #1a1a1a;
   color: white;
 }
-.footer-copyright{
+
+.footer-copyright {
   padding-bottom: 10px;
 }
-.aviso{
+
+.aviso {
   color: white;
   margin-left: 5%;
 }
-.informacion{
+
+.informacion {
   font-weight: normal;
   margin-left: 5%;
 }
-.icons{
+
+.icons {
   padding: 20px 10px 10px 25px;
 }
-.icons-contacts{
+
+.icons-contacts {
   color: white;
 }
-.titulo{
+
+.titulo {
   color: rgb(26, 25, 25);
 }
-.login{
+
+.login {
   background-color: white;
   color: black;
   height: auto;
 }
-.portada{ 
+
+.portada {
   margin: 0 30px 0 20px;
   margin-top: 20%;
 }
-.portada-img{
-  width:100%;
+
+.portada-img {
+  width: 100%;
   height: auto;
 }
-.inicio{
+
+.inicio {
   margin: 20px 20px 20px 20px;
 }
-.input{
+
+.input {
   margin-top: 20px;
 }
-.form-control{
+
+.form-control {
   background-color: white;
   color: black;
   width: 97%;
@@ -140,15 +162,17 @@ button:focus-visible {
   border-radius: 4px;
   border: 1px solid rgb(129, 127, 127);
 }
-.form-control:focus-within{
+
+.form-control:focus-within {
   border: 1px solid rgb(34, 34, 245);
 }
 
-.Errores{
+.Errores {
   font-size: 10px;
   color: red;
 }
-.googleAuth{
+
+.googleAuth {
   display: flex;
   width: 85%;
   height: auto;
@@ -161,32 +185,38 @@ button:focus-visible {
   margin-bottom: 20px;
   border-radius: 7px;
 }
-.googleAuth:hover{
+
+.googleAuth:hover {
   cursor: pointer;
-  box-shadow: 0  2px 4px 4px rgba(8, 8, 8, 0.5);
+  box-shadow: 0 2px 4px 4px rgba(8, 8, 8, 0.5);
 }
-.icono{
- margin: 10px 30px 5px 15px;
+
+.icono {
+  margin: 10px 30px 5px 15px;
 }
-.spanText{
+
+.spanText {
   color: gray;
 }
-.loader{
+
+.loader {
   position: 'fixed';
   top: '50%';
   left: '50%';
   transform: 'translate(-50%, -50%)';
   z-index: 9999
 }
-.clear-btn:hover{
+
+.clear-btn:hover {
   border-radius: 3px;
   border-bottom: 3px solid gray;
   cursor: pointer;
 }
+
 .container-navigation {
   margin-top: 10px;
   font-size: 10px;
-width: auto;
+  width: auto;
 }
 
 .bottomNavigation {
@@ -205,7 +235,8 @@ width: auto;
   max-height: min-content;
   width: 105px;
 }
-.navItem:hover{
+
+.navItem:hover {
   transition: 0.1s;
   color: rgb(22, 123, 218);
   border: 2px solid rgb(22, 123, 218);
@@ -216,10 +247,12 @@ width: auto;
 .label {
   margin-top: -3px;
 }
-.text-important{
+
+.text-important {
   cursor: pointer;
 }
-.RecuperarContraseña{
+
+.RecuperarContraseña {
   background-color: rgba(246, 242, 242, 0.941);
   color: black;
   width: auto;
@@ -229,9 +262,10 @@ width: auto;
   align-items: center;
   padding: 10px;
 }
-.RecuperarContraseña .contenido{
+
+.RecuperarContraseña .contenido {
   border-radius: 15px;
-  border: 1px solid gray; 
+  border: 1px solid gray;
   box-shadow: 0 0 15px rgba(33, 53, 71, 0.5);
   margin-top: -10%;
   justify-content: center;
@@ -239,10 +273,12 @@ width: auto;
   background-color: white;
   width: auto;
 }
-.RecuperarContraseña .titulo{
- text-align: center;
+
+.RecuperarContraseña .titulo {
+  text-align: center;
 }
-.RecuperarContraseña .descripcion{
+
+.RecuperarContraseña .descripcion {
   margin: 10px;
   padding: 1%;
   border: 2px solid rgb(219, 215, 215);
@@ -252,11 +288,13 @@ width: auto;
   align-items: center;
   text-align: center;
 }
-.principal{
+
+.principal {
   min-width: 100vw;
   min-height: 100vw;
 }
-.correo-send{
+
+.correo-send {
   margin: 10px;
   background-color: #e7e7e7a7;
   color: black;
@@ -267,20 +305,235 @@ width: auto;
   border-radius: 7px;
 }
 
-.botones button{
+.botones button {
   margin-right: 25px;
   cursor: pointer;
   margin-top: 2%;
   margin-bottom: 2%;
 }
-.btnCancelar{
+
+.btnCancelar {
   background-color: rgba(252, 53, 53, 0.868);
   color: white;
 }
-.btnAceptar{
+
+.btnAceptar {
   background-color: rgb(25, 142, 200);
   color: white;
 }
-.titleR{
+
+.titleR {
   font-weight: normal;
 }
+
+.home-information {
+  width: auto;
+  color: white;
+  border: 1px solid white;
+  padding: 10px;
+}
+.portada {
+  margin-top: 80px;
+  height: 280px;
+  border-bottom: 2px solid gray;
+}
+.img-portada{
+  width: 93vmax;
+  height: 250px;
+}
+.informacion{
+  margin-bottom: 20px;
+}
+.textP {
+  width: 85%;
+  margin-left: 30px;
+  text-align: justify;
+  margin-top: 20px;
+}
+.Materials{
+  margin-left: 80px;
+  margin-bottom: 50px;
+  margin-top: 30px;
+}
+.logosP{
+  border-bottom: 2px solid gray;
+}
+.textP a {
+  text-decoration: none;
+}
+.textP h4{
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.textP a:hover {
+  transition: 0.7ms;
+  font-size: 20px;
+}
+
+.netlify:hover {
+  color: darkcyan;
+  text-decoration: wavy;
+}
+
+.pokemm:hover {
+  color: tomato;
+}
+
+.firebase:hover {
+  color: rgb(199, 199, 11);
+}
+
+.reactjs:hover {
+  color: rgb(15, 185, 185);
+}
+
+.acercaDe h1 {
+  font-size: 80px;
+  margin-top: -30px;
+}
+
+.herramientas {
+  border-bottom: 2px solid black;
+  margin-left: 10%;
+}
+
+.prw img {
+  width: 80%;
+  height: auto;
+  margin: 15px 20px 0 0;
+}
+
+.herramientas div {
+  display: flex;
+}
+
+#react {
+  width: 50%;
+}
+
+.cardsLogos {
+  width: 80%;
+}
+
+.App-logo {
+  height: 150px;
+  margin: 10px;
+}
+.App-logo:hover{
+  cursor: pointer;
+  height: 160px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+.informacion{
+  margin-top: 75px;
+}
+.contactanos{
+  margin-top: 10px;
+  padding: 50px;
+  border-bottom: 2px solid gray;
+  height: min-content;
+  margin-left: 10px ;
+}
+.contactanos div{
+  margin-top: 5px;
+  height: max-content;
+  margin-bottom: 5px;
+  padding: 10px;
+}
+.contactanos h4 {
+  font-weight: normal;
+}
+.contactanos a{
+ text-decoration: none;
+ font-weight: normal;
+  color: white;
+}
+.contactanos li{
+  text-decoration: none;
+}
+ .formulario{
+  margin-top: 110px;
+  background-color: white;
+  color: black;
+  padding: 10px;
+  border: 2px solid gray;
+  border-radius: 7px;
+  min-height: 310px;
+  padding-top: 10px;
+  width: fit-content ;
+  margin-right: 30px;
+  margin-left: 10px;
+ }
+ .contentt{
+  display: flex;
+ }
+ .campo{
+  display: flex;
+  border-radius: 7px;
+  width: min-content;
+  height: max-content;
+  min-height: 50px;
+  align-items: center;
+  border: 2px solid rgb(204, 201, 201);
+  margin: 10px;
+  padding-left: 10px;
+ }
+ .campo:focus{
+  outline: rgb(0, 128, 255);
+ }
+ .campo input{
+  background-color: white;
+  color: black;
+  width: auto;
+  min-width: 20vi;
+  height: auto;
+  min-height: 35px;
+  border: none;
+ }
+ .campo input:focus{
+  outline: none;
+ }
+ .area{
+  width: 95%;
+  margin-left: 15px;
+  background-color: white;
+  min-height: 90px;
+  border: 2px solid gray;
+  border-radius: 7px;
+  color: black;
+ }
+ .iconoPersona{
+  color: rgba(0, 110, 255, 0.795);
+ }
+ .btnStack2{
+  display: flex;
+  gap: 30px;
+  margin-left: 30%;
+ }
+ .btnStack2 Button {
+  margin-top: 20px;
+  width: 100px;
+  height: 40px;
+ }
+ .tutorial{
+  margin-top: 40px;
+  padding: 40px;
+  margin-bottom: 20px;
+ }
+ .titleP{
+  color: rgb(54, 184, 244);
+  font-size: 20px;
+ }
+ .tutorial h3{
+   font-weight: normal;
+   font-size: 18px;
+ }
+ .pruebas{
+  padding: 0px 0px 10px 10px;
+  border-bottom: 2px solid gray;
+
+ }

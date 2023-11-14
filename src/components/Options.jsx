@@ -53,7 +53,7 @@ export const Options = () => {
     setDescripcion('');
     setTool('');
     setCodigo('');
-    setResponse('Vamos de nuevo');
+    setResponse('');
   }
 
 
