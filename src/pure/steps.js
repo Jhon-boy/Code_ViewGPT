@@ -5,6 +5,13 @@ import PASO3 from '../img/PASO3.png';
 import PASO4 from '../img/PASO4.png';
 import PASO5 from '../img/PASO5.png';
 
+import GUARDAR1 from '../img/GUARDAR1.png'
+import GUARDAR2 from '../img/GUARDAR2.png'
+import GUARDAR3 from '../img/GUARDAR3.png'
+import GUARDAR4 from '../img/GUARDAR4.png'
+import GUARDAR5 from '../img/GUARDAR5.png'
+import GUARDAR6 from '../img/GUARDAR6.png'
+
 function createImageArray(images, labels) {
   if (images.length !== labels.length) {
     throw new Error('El número de imágenes y etiquetas debe ser el mismo');
@@ -20,9 +27,17 @@ function createImageArray(images, labels) {
 
   return imageArray;
 }
+function getImageArrayLabels(images) {
+  return images.map((image, index) => `Guardado ${index + 1}`);
+}
+
 
 const imageLabels = ['Paso 1: Ingresa tu función', 'Paso 2: Selecciona tu lenguaje', 'Paso 3: Selecciona la herramienta', 'Paso 4: Ingresa un contexto', 'Paso 5: Genera y espera'];
 const imagePaths = [PASO1, PASO2, PASO3, PASO4, PASO5];
+const guardarImages = [GUARDAR1, GUARDAR2, GUARDAR3, GUARDAR4, GUARDAR5, GUARDAR6];
+const guardarImageLabels = getImageArrayLabels(guardarImages);
+
+const guardarImagesArray = createImageArray(guardarImages, guardarImageLabels);
 
 const images = createImageArray(imagePaths, imageLabels);
 
@@ -46,4 +61,4 @@ const steps = [
   },
 ];
 
-export { images, steps };
+export { images, steps, guardarImagesArray };

@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect } from "react";
-import { Outlet , Link} from 'react-router-dom'
+import { Outlet, Link } from 'react-router-dom'
+import LOGO from '../img/LOGO.png'
 import {
   AppBar,
   Tab,
@@ -15,13 +16,15 @@ import {
 import { configContext } from '../context/configContext';
 import DrawerComp from "./Drawer";
 import { Footer } from "./Footer";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { getAuth, signOut } from "firebase/auth";
 import Swal from "sweetalert2";
+import { colorPrimario, colroSecundario } from "../pure/colors";
 
 export const Header = () => {
   const auth = getAuth();
 
+  const location = useLocation();
   // valores globales
   const { usuario } = useContext(configContext)
 
@@ -65,8 +68,6 @@ export const Header = () => {
   }
 
   useEffect(() => {
-    // console.log('USUARIO', JSON.stringify(usuario));
-    // console.log('UID', JSON.stringify(usuario.uid));
   }, [usuario]);
 
   return (
@@ -76,19 +77,23 @@ export const Header = () => {
 
           {isMatch ? (
             <>
-              <Typography sx={{ fontSize: "1rem", paddingLeft: "2%" }}>
-                Code View
+              <Typography sx={{ fontSize: "1rem", paddingLeft: "3%" }}>
+                <img
+                  src={LOGO}
+                  alt="ChatGPT Logo"
+                  height={60}
+                  style={{ marginLeft: '20px' }}
+                />
               </Typography>
               <DrawerComp />
             </>
           ) : (
             <>
-              <Typography sx={{ fontSize: "1.3rem", }}>
-                Powered by
+              <Typography sx={{ fontSize: "1.3rem", paddingLeft: "3%" }}>
                 <img
-                  src="https://seeklogo.com/images/O/openai-logo-F97AAA4254-seeklogo.com.png"
+                  src={LOGO}
                   alt="ChatGPT Logo"
-                  height={50}
+                  height={60}
                   style={{ marginLeft: '20px' }}
                 />
               </Typography>
@@ -100,11 +105,31 @@ export const Header = () => {
 
                 onChange={(e, value) => setValue(value)}
               >
-                <Link to='/'>  <Tab label="Home" /></Link>
-
-                <Link to='infoPage'> <Tab label="Informacíon" /> </Link>
-                <Link to='contact'> <Tab label="Contactos" />  </Link>  
-                <Link to='help'> <Tab label="Ayuda" />  </Link>  
+                <Link to='/'>
+                  <Tab tabIndex="-1"
+                    className={location.pathname === '/' ? 'selectItem active' : 'selectItem'}
+                    label={<span span style={{ color: colroSecundario }}>Inicio</span>}
+                  />
+                </Link>
+                <Link to='/infoPage'>
+                  <Tab
+                    tabIndex="-1"
+                    className={location.pathname === '/infoPage' ? 'selectItem active' : 'selectItem'}
+                    label={<span style={{ color: colroSecundario }}>Información</span>}
+                  />
+                </Link>
+                <Link to='/contact'>
+                  <Tab
+                    tabIndex="-1"
+                    className={location.pathname === '/contact' ? 'selectItem active' : 'selectItem'}
+                    label={<span style={{ color: colroSecundario }}>Contáctos</span>} />
+                </Link>
+                <Link to='help' >
+                  <Tab
+                    disableFocusRipple
+                    className={location.pathname === '/help' ? 'selectItem active' : 'selectItem'}
+                    label={<span style={{ color: colroSecundario }}>Ayuda</span>} />
+                </Link>
               </Tabs>
               {usuario === null || usuario === 'Anonimo' ? (
                 <Button onClick={() => navigateTo('/login')}>Iniciar Sesión</Button>
@@ -117,7 +142,7 @@ export const Header = () => {
                     aria-expanded={open ? 'true' : undefined}
                     onClick={handleClick}
                   >
-                    {usuario.email}
+                    <span style={{ color: colorPrimario }}>{usuario.email}</span>
                   </Button>
                   <Menu
                     id="basic-menu"
@@ -130,7 +155,7 @@ export const Header = () => {
                   >
                     <MenuItem onClick={handleClose}>Perfil</MenuItem>
                     <MenuItem onClick={handleClose}>
-                    <Link to='/historial'>Historial</Link>
+                      <Link to='/historial'>Historial</Link>
                     </MenuItem>
                     <MenuItem onClick={logOut}>Salir</MenuItem>
                   </Menu>
@@ -139,7 +164,7 @@ export const Header = () => {
             </>
           )}
         </Toolbar>
-      </AppBar>
+      </AppBar >
       <Outlet />
       <Footer />
     </>

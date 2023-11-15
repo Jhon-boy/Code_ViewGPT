@@ -13,6 +13,18 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+.selectItem {
+  padding-top: 10px; /* espaciado deseado */
+}
+.selectItem:hover{
+  border-bottom: 2px solid #108EEE;
+}
+.selectItem.active:after {
+  content: '';
+  display: block;
+  border-bottom: 2px solid #108EEE;
+  width: 50%; /* ancho del borde */
+}
 
 a {
   font-weight: 500;

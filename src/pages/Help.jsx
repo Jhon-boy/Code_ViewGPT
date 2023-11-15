@@ -13,7 +13,8 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import Grid from '@mui/material/Grid';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
-import { images, steps } from '../pure/steps.js';
+import { images, steps, guardarImagesArray } from '../pure/steps.js';
+import Fab from '@mui/material/Fab';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -21,6 +22,9 @@ export const Help = () => {
   const theme = useTheme();
   const [activeStep2, setActiveStep2] = React.useState(0);
   const maxSteps2 = images.length;
+
+  const [activeStep3, setActiveStep3] = React.useState(0);
+  const maxSteps3 = guardarImagesArray.length;
 
 
   const handleNext2 = () => {
@@ -35,129 +39,291 @@ export const Help = () => {
     setActiveStep2(step);
   };
 
+  
+  const handleNext3 = () => {
+    setActiveStep3((prevActiveStep3) => prevActiveStep3 + 1);
+  };
+
+  const handleBack3 = () => {
+    setActiveStep3((prevActiveStep3) => prevActiveStep3 - 1);
+  };
+
+  const handleStepChange3 = (step1) => {
+    setActiveStep3(step1);
+  };
+
   return (
     <div className="home-information">
       <div className="tutorial">
         <h3 >Bienvenido a nuestro sitio web, estamos encantados de que estés aquí. Queremos ayudarte a aprovechar
           al máximo todas las funciones y recursos que tenemos para ofrecerte. Esta guía te mostrará cómo navegar
           y utilizar las diferentes secciones de nuestro sitio de manera sencilla</h3>
-          <div className='pruebas'>
-             <Box sx={{ flexGrow: 2 }}>
-        <h4 className='titleP'>Guía para generar pruebas</h4>
-          <Grid container spacing={5}>
-            <Grid item xs={12} md={6}>
-              <h3>¿Como generar pruebas?</h3>
-              <Accordion>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
-                >
-                  <Typography>Paso 1: Ingresa tu función</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography>
-                    Como primer paso debes insertar el código en el componente principal, debes asegurarte que
-                    sea una función propia para su posterior generación de pruebas unitarias
-                  </Typography>
-                </AccordionDetails>
-              </Accordion>
-              <Accordion>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel2a-content"
-                  id="panel2a-header"
-                >
-                  <Typography>Paso 2: Configura tu función</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography>
-                    Como segundo paso, debes configurar todos los parámetros indicados en el componente. Para acceder a esta función debes dar click en el
-                    botón Configurar. Aquí debes seleccionar el lenguaje de programación así como su herramienta de testing. Por último,
-                    debes ingresar un contexto de lo que realiza tu función.
-                  </Typography>
-                </AccordionDetails>
-              </Accordion>
-              <Accordion >
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel3a-content"
-                  id="panel3a-header"
-                >
-                  <Typography>Paso 3: Esperar respuesta</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography>
-                    Una vez completado todos los pasos anteriores, da click en el botón Generar y espera aproximadamente 1 minuto como promedio
-                    (Puede variar el tiempo de espera según la complejidad de función ingresada). Cuando las pruebas se hayan generado con éxito, se visualizarán
-                    en otro componente.
-                  </Typography>
-                </AccordionDetails>
-              </Accordion>
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <h3>Tutorial</h3>
-              <Box sx={{ minWidth: 400, flexGrow: 1 }}>
-                <AutoPlaySwipeableViews
-                  axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                  index={activeStep2}
-                  onChangeIndex={handleStepChange}
-                  enableMouseEvents
-                >
-                  {images.map((step, index) => (
-                    <div key={step.label}>
-                      {Math.abs(activeStep2 - index) <= 2 ? (
-                        <Box
-                          component="img"
-                          sx={{
-                            height: 335,
-                            display: 'block',
-                            maxWidth: 400,
-                            overflow: 'hidden',
-                            width: '100%',
-                          }}
-                          src={step.imgPath}
-                          alt={step.label}
-                        />
-                      ) : null}
-                    </div>
-                  ))}
-                </AutoPlaySwipeableViews>
-                <MobileStepper
-                  steps={maxSteps2}
-                  position="static"
-                  activeStep={activeStep2}
-                  nextButton={
-                    <Button
-                      size="small"
-                      onClick={handleNext2}
-                      disabled={activeStep2 === maxSteps2 - 1}
+        <div className='pruebas'>
+          <Box sx={{ flexGrow: 2 }}>
+            <h4 className='titleP'>1) Guía para generar pruebas</h4>
+            <Grid container spacing={5}>
+              <Grid item xs={12} md={6}>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    <Typography>Paso 1: Ingresa tu función</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>
+                      Como primer paso debes insertar el código en el componente principal, debes asegurarte que
+                      sea una función propia para su posterior generación de pruebas unitarias
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel2a-content"
+                    id="panel2a-header"
+                  >
+                    <Typography>Paso 2: Configura tu función</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>
+                      Como segundo paso, debes configurar todos los parámetros indicados en el componente. Para acceder a esta función debes dar click en el
+                      botón Configurar. Aquí debes seleccionar el lenguaje de programación así como su herramienta de testing. Por último,
+                      debes ingresar un contexto de lo que realiza tu función.
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion >
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel3a-content"
+                    id="panel3a-header"
+                  >
+                    <Typography>Paso 3: Esperar respuesta</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>
+                      Una vez completado todos los pasos anteriores, da click en el botón Generar y espera aproximadamente 1 minuto como promedio
+                      (Puede variar el tiempo de espera según la complejidad de función ingresada). Cuando las pruebas se hayan generado con éxito, se visualizarán
+                      en otro componente.
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+                <p> En esta guía, te explicaremos los pasos que debes seguir para generar pruebas unitarias de manera exitosa.
+                  Asegúrate de leer cada paso cuidadosamente y seguir las instrucciones proporcionadas.
+                  Si tienes alguna duda o necesitas ayuda adicional, no dudes en contactarnos.</p>
+              </Grid>
+              <Grid item xs={12} md={3}>
+                <div>
+                  Tutorial
+                  <Box sx={{ minWidth: 400, flexGrow: 1 }}>
+                    <AutoPlaySwipeableViews
+                      axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                      index={activeStep2}
+                      onChangeIndex={handleStepChange}
+                      enableMouseEvents
                     >
-                      Siguiente
-                      {theme.direction === 'rtl' ? (
-                        <KeyboardArrowLeft />
-                      ) : (
-                        <KeyboardArrowRight />
-                      )}
-                    </Button>
-                  }
-                  backButton={
-                    <Button size="small" onClick={handleBack2} disabled={activeStep2 === 0}>
-                      {theme.direction === 'rtl' ? (
-                        <KeyboardArrowRight />
-                      ) : (
-                        <KeyboardArrowLeft />
-                      )}
-                      Volver
-                    </Button>
-                  }
-                />
-              </Box>
+                      {images.map((step, index) => (
+                        <div key={step.label}>
+                          {Math.abs(activeStep2 - index) <= 2 ? (
+                            <Box
+                              component="img"
+                              sx={{
+                                height: 335,
+                                display: 'block',
+                                maxWidth: 400,
+                                overflow: 'hidden',
+                                width: '100%',
+                              }}
+                              src={step.imgPath}
+                              alt={step.label}
+                            />
+                          ) : null}
+                        </div>
+                      ))}
+                    </AutoPlaySwipeableViews>
+                    <MobileStepper
+                      steps={maxSteps2}
+                      position="static"
+                      activeStep={activeStep2}
+                      nextButton={
+                        <Button
+                          size="small"
+                          onClick={handleNext2}
+                          disabled={activeStep2 === maxSteps2 - 1}
+                        >
+                          Siguiente
+                          {theme.direction === 'rtl' ? (
+                            <KeyboardArrowLeft />
+                          ) : (
+                            <KeyboardArrowRight />
+                          )}
+                        </Button>
+                      }
+                      backButton={
+                        <Button size="small" onClick={handleBack2} disabled={activeStep2 === 0}>
+                          {theme.direction === 'rtl' ? (
+                            <KeyboardArrowRight />
+                          ) : (
+                            <KeyboardArrowLeft />
+                          )}
+                          Volver
+                        </Button>
+                      }
+                    />
+                  </Box>
+                </div>
+
+              </Grid>
             </Grid>
-          </Grid>
-        </Box>
-          </div>
-       
+          </Box>
+        </div>
+        <div className='pruebas'>
+          <Box sx={{ flexGrow: 2 }}>
+            <h4 className='titleP'>2) Historial de Pruebas</h4>
+            <Grid container spacing={5}>
+              <Grid item xs={12} md={6}>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    <Typography>Paso 1: Guardar en historial</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>
+                      Para guardar en un historial, primero deberas tener una cuenta asociada para que puedar usar esta acción.
+                      Debes dar click en la opcion de guardar y cuando todo haya salido bien se presentara una pequeña notificación en la 
+                      parte inferior con el mensaje de éxito. 
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel2a-content"
+                    id="panel2a-header"
+                  >
+                    <Typography>Paso 2: Ver historial</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>
+                      Para ver tu historial de pruebas, debes dar click en tu perfil y seleccionar la opcion de "Historial", luego se te redirigirá a la página. 
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion >
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel3a-content"
+                    id="panel3a-header"
+                  >
+                    <Typography>Paso 3: Ver un Historial específico</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>
+                      Si tienes un historial de pruebas, primero debes dar click en el historial que deseas ver. El menú de pruebas generadas se identifíca mediante
+                      su título para lo cual deberás recordar el contexto ingresado al momento de guardar la historial..
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion >
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel3a-content"
+                    id="panel3a-header"
+                  >
+                    <Typography>Paso 4: Copiar un  Historial</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>
+                     Puedes copiar el contenido de un historial en especifco dando click el ícono de copiar. Lo cual se mostrará una notificación
+                     de ello.
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion >
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel3a-content"
+                    id="panel3a-header"
+                  >
+                    <Typography> Paso 5: Eliminar un historial</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>
+                      Para eliminar un historial debes dar click en el icono de borrar y posteriormente debes confirmarlo. Debes tener en cuenta que 
+                      cuando eliminas tu historial, ya no podras acceder a ese historial y sera eliminado definitivamente. 
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+              </Grid>
+              <Grid item xs={12} md={3}>
+                <div>
+                  Tutorial
+                  <Box sx={{ minWidth: 400, flexGrow: 1 }}>
+                    <AutoPlaySwipeableViews
+                      axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                      index={activeStep3}
+                      onChangeIndex={handleStepChange3}
+                      enableMouseEvents
+                    >
+                      {guardarImagesArray.map((step, index) => (
+                        <div key={step.label}>
+                          {Math.abs(activeStep3 - index) <= 2 ? (
+                            <Box
+                              component="img"
+                              sx={{
+                                height: 335,
+                                display: 'block',
+                                maxWidth: 400,
+                                overflow: 'hidden',
+                                width: '100%',
+                              }}
+                              src={step.imgPath}
+                              alt={step.label}
+                            />
+                          ) : null}
+                        </div>
+                      ))}
+                    </AutoPlaySwipeableViews>
+                    <MobileStepper
+                      steps={maxSteps3}
+                      position="static"
+                      activeStep={activeStep3}
+                      nextButton={
+                        <Button
+                          size="small"
+                          onClick={handleNext3}
+                          disabled={activeStep3 === maxSteps3 - 1}
+                        >
+                          Siguiente
+                          {theme.direction === 'rtl' ? (
+                            <KeyboardArrowLeft />
+                          ) : (
+                            <KeyboardArrowRight />
+                          )}
+                        </Button>
+                      }
+                      backButton={
+                        <Button size="small" onClick={handleBack3} disabled={activeStep3 === 0}>
+                          {theme.direction === 'rtl' ? (
+                            <KeyboardArrowRight />
+                          ) : (
+                            <KeyboardArrowLeft />
+                          )}
+                          Volver
+                        </Button>
+                      }
+                    />
+                  </Box>
+                </div>
+              </Grid>
+            </Grid>
+          </Box>
+        </div>
       </div>
     </div>
   )
