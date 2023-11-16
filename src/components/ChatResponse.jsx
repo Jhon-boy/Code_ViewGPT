@@ -11,6 +11,7 @@ import CommentIcon from '@mui/icons-material/Comment';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import { colroSecundario,colorLetras, colorPrimario2, colorPrimario } from "../pure/colors";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -56,21 +57,21 @@ export const ChatResponse = ({chat}) => {
           <div className="chat-info">
             <div className="chat-info-row">
               <div className="time-icon">
-                <CodeIcon />
-                <span className="chat-info-value">{chat.lenguaje}</span>
+                <CodeIcon style={{color: colorLetras}} />
+                <span className="chat-info-value" style={{color: colroSecundario}}>{chat.lenguaje}</span>
               </div>
               <div className="time-icon">
-                <BuildIcon />
-                <span className="chat-info-value">{chat.herramienta}</span>
+                <BuildIcon style={{color: colorLetras}} />
+                <span className="chat-info-value" style={{color: colroSecundario}}>{chat.herramienta}</span>
               </div>
               <div className="time-icon">
-                <CalendarMonthIcon />
-                <span className="chat-info-value">{formattedDate}</span>
+                <CalendarMonthIcon style={{color: colorLetras}} />
+                <span className="chat-info-value" style={{color: colroSecundario}}>{formattedDate}</span>
               </div>
             </div>
             <div className="time-icon">
-              <CommentIcon />
-              <span className="chat-info-value">{chat.titulo}</span>
+              <CommentIcon style={{color: colorLetras}} />
+              <span className="chat-info-value" style={{color: colroSecundario}}>{chat.titulo}</span>
             </div>
           </div>
 
@@ -80,7 +81,7 @@ export const ChatResponse = ({chat}) => {
                 <Grid item xs={12} md={6}>
                   <div className="chat-message">
                     <div className="message-header">
-                      <div> Código Ingresado</div>
+                      <div><span> Código Ingresado</span></div>
                       <div  onClick={copiar} ><ContentCopyIcon  className='Icon-Copy'
                         sx={{ color: 'gray' }} />
                       </div>

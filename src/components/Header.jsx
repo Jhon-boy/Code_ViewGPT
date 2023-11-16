@@ -11,7 +11,12 @@ import {
   useTheme,
   Button,
   MenuItem,
-  Menu
+  Box,
+  ListItemText, InputLabel ,
+  Drawer, InputAdornment ,
+  Divider, ListItem,
+  List, ListItemButton,
+  ListItemIcon, Menu, Input
 } from "@mui/material";
 import { configContext } from '../context/configContext';
 import DrawerComp from "./Drawer";
@@ -20,6 +25,11 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { getAuth, signOut } from "firebase/auth";
 import Swal from "sweetalert2";
 import { colorPrimario, colroSecundario } from "../pure/colors";
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import MailIcon from '@mui/icons-material/Mail';
+import FormControl from '@mui/material/FormControl';
+import IconButton from '@mui/material/IconButton';
 
 export const Header = () => {
   const auth = getAuth();
@@ -27,11 +37,24 @@ export const Header = () => {
   const location = useLocation();
   // valores globales
   const { usuario } = useContext(configContext)
+  const [showPassword, setShowPassword] = useState(false);
 
   const [value, setValue] = useState();
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
   const history = useNavigate();
+
+  const [state, setState] = useState({
+    right: false,
+  });
+
+  const toggleDrawer = (open) => (event) => {
+    setAnchorEl(null);
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setState({ ...state, right: open });
+  };
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -45,6 +68,12 @@ export const Header = () => {
   const navigateTo = (path) => {
     history(path);
   }
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   // salida 
   const logOut = () => {
     Swal.fire({
@@ -67,7 +96,72 @@ export const Header = () => {
     })
   }
 
+  const list = () => (
+    <Box
+      sx={{ width: 300 }}
+      role="presentation"
+      onKeyDown={toggleDrawer(false)}
+    >
+      <div className="perfil">
+        <List>
+
+          <h3 style={{ color: colorPrimario }}>Tu cuenta</h3>
+          <ListItem>
+            <ListItemButton>
+              <ListItemIcon>
+                <MailIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Usuario'} />
+            </ListItemButton>
+            <Divider />
+          </ListItem>
+
+          <ListItem>
+            <ListItemButton>
+              <ListItemIcon>
+                <MailIcon />
+              </ListItemIcon>
+              <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
+                <InputLabel htmlFor="standard-adornment-password">Contraseña</InputLabel>
+                <Input
+                  id="standard-adornment-password"
+                  type={showPassword ? 'text' : 'password'}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+              </FormControl>
+            </ListItemButton>
+            <Divider />
+          </ListItem>
+
+          <ListItem>
+            <ListItemButton>
+              <ListItemIcon>
+                <MailIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Usuario'} />
+            </ListItemButton>
+            <Divider />
+          </ListItem>
+
+        </List>
+        <Divider />
+      </div>
+
+    </Box>
+  );
+
   useEffect(() => {
+    console.log('USUARIO ->', usuario);
   }, [usuario]);
 
   return (
@@ -153,11 +247,16 @@ export const Header = () => {
                       'aria-labelledby': 'basic-button',
                     }}
                   >
-                    <MenuItem onClick={handleClose}>Perfil</MenuItem>
-                    <MenuItem onClick={handleClose}>
-                      <Link to='/historial'>Historial</Link>
-                    </MenuItem>
-                    <MenuItem onClick={logOut}>Salir</MenuItem>
+                    <MenuItem className="select" onClick={toggleDrawer(true)}>Perfil</MenuItem>
+                    <Link to='historial'>
+                      <MenuItem className="select" style={{ color: 'black' }} onClick={handleClose}>
+                        Historial
+                      </MenuItem>
+                    </Link>
+                    <Link  >
+                      <MenuItem className="select" style={{ color: 'black' }} onClick={logOut}>Salir</MenuItem>
+                    </Link>
+
                   </Menu>
                 </div>
               )}
@@ -165,6 +264,16 @@ export const Header = () => {
           )}
         </Toolbar>
       </AppBar >
+      <div>
+        <Button onClick={toggleDrawer(true)}>Open Right</Button>
+        <Drawer
+          anchor="right"
+          open={state.right}
+          onClose={toggleDrawer(false)}
+        >
+          {list()}
+        </Drawer>
+      </div>
       <Outlet />
       <Footer />
     </>

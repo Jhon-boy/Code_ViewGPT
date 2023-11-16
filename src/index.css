@@ -248,6 +248,10 @@ button:focus-visible {
   width: 105px;
 }
 
+.select:hover{
+  border-bottom: 2px solid #108EEE;
+  border-radius: 4px;
+}
 .navItem:hover {
   transition: 0.1s;
   color: rgb(22, 123, 218);
@@ -548,4 +552,7 @@ button:focus-visible {
   padding: 0px 0px 10px 10px;
   border-bottom: 2px solid gray;
 
+ }
+ .perfil{
+  padding: 20px;
  }
