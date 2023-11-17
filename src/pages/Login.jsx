@@ -68,7 +68,7 @@ export const Login = () => {
                 localStorage.setItem('credentials', auth);
                 sessionStorage.setItem('credentials', auth);
                 Swal.fire({
-                    position: 'top-end',
+                    position: 'center',
                     icon: 'success',
                     title: 'Bienvenido',
                     showConfirmButton: false,
@@ -86,7 +86,6 @@ export const Login = () => {
                 text: 'Verifique correo o contraseña',
             })
         }
-
     }
     
     return (

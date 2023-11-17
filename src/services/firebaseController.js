@@ -1,5 +1,5 @@
 import { collection, addDoc, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
-import { getAuth, getRedirectResult, GoogleAuthProvider, sendPasswordResetEmail  } from "firebase/auth";
+import { getAuth, getRedirectResult, GoogleAuthProvider, sendPasswordResetEmail, updatePassword  } from "firebase/auth";
 import { db, auth } from "./firebase"
 
 // save in database
@@ -9,6 +9,14 @@ export const GuardarRegistro = async (registro) => {
 }
 
 
+export const updatePass = async (user, newPass) => {
+  try {
+    await updatePassword(user, newPass);
+    return true;
+  } catch (error) {
+    return false; 
+  }
+}
 // get our historial data
 export const obtenerRegistros = async (usuario) => {
   

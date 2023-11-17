@@ -57,11 +57,11 @@ export const Contact = () => {
         throw new Error('Respuesta inesperada del servidor');
       }
     } catch (e) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Ha ocurrido algo. Intentalo mas luego",
-      });
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Ha ocurrido algo. Intentalo mas luego",
+        });
     }
   }
   return (

@@ -9,11 +9,11 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
-  Button,
+  Button, Fab,
   MenuItem,
-  Box,
-  ListItemText, InputLabel ,
-  Drawer, InputAdornment ,
+  Box, TextField,
+  ListItemText, InputLabel,
+  Drawer, InputAdornment,
   Divider, ListItem,
   List, ListItemButton,
   ListItemIcon, Menu, Input
@@ -30,15 +30,25 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import MailIcon from '@mui/icons-material/Mail';
 import FormControl from '@mui/material/FormControl';
 import IconButton from '@mui/material/IconButton';
+import EditIcon from '@mui/icons-material/Edit';
+import ClearIcon from '@mui/icons-material/Clear';
+import DateRangeIcon from '@mui/icons-material/DateRange';
+import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
+import { updatePass } from "../services/firebaseController.js";
 
 export const Header = () => {
   const auth = getAuth();
 
+  const user = auth.currentUser;
+
   const location = useLocation();
   // valores globales
   const { usuario } = useContext(configContext)
+  const [newPass, setNewPass] = useState();
+
   const [showPassword, setShowPassword] = useState(false);
 
+  const [edit, setEdit] = useState(false);
   const [value, setValue] = useState();
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
@@ -48,11 +58,16 @@ export const Header = () => {
     right: false,
   });
 
+  useEffect(() => {
+    console.log('USUARIO ->', usuario);
+  }, [usuario]);
+
   const toggleDrawer = (open) => (event) => {
     setAnchorEl(null);
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
+    setEdit(false);
     setState({ ...state, right: open });
   };
 
@@ -73,6 +88,7 @@ export const Header = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
 
   // salida 
   const logOut = () => {
@@ -96,73 +112,162 @@ export const Header = () => {
     })
   }
 
+
+  const email = usuario ? usuario.email : 'Anonimo';
+  const fechaCreacion = usuario && usuario.metadata ? usuario.metadata.creationTime : '';
+  const fechaActualizacion = usuario && usuario.metadata ? usuario.metadata.lastLoginAt : '';
+  const lastLoginAtDate = usuario && usuario.metadata ? new Date(parseInt(fechaActualizacion)) : null;
+  const customFormatted = lastLoginAtDate ? lastLoginAtDate.toLocaleDateString() : '';
+
+
+  const creationTimeDate = new Date(fechaCreacion);
+
+  const formatted = creationTimeDate.toLocaleDateString('es-ES', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  });
+
+  const upDate = async () => {
+    setEdit(true)
+    try {
+      const result = await Swal.fire({
+        title: "¿Estás seguro de actualizar la contraseña?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, eliminar"
+      });
+
+      if (result.isConfirmed) {
+        await updatePass(user, newPass);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Contraseña actualizada. Inicie sesión nuevamente por favor",
+          showConfirmButton: false,
+          timer: 1800,
+          didDestroy: async () => {
+            await signOut(auth);
+            localStorage.removeItem('credenciales');
+            navigateTo('/login');
+          }
+        });
+      }
+    } catch (e) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Ha ocurrido algo. Inténtalo más tarde",
+      });
+    }
+  };
+
   const list = () => (
     <Box
-      sx={{ width: 300 }}
+      sx={{ width: 330 }}
       role="presentation"
-      onKeyDown={toggleDrawer(false)}
     >
       <div className="perfil">
         <List>
 
           <h3 style={{ color: colorPrimario }}>Tu cuenta</h3>
           <ListItem>
-            <ListItemButton>
-              <ListItemIcon>
-                <MailIcon />
-              </ListItemIcon>
-              <ListItemText primary={'Usuario'} />
-            </ListItemButton>
+            <ListItemIcon>
+              <MailIcon />
+            </ListItemIcon>
+            <TextField id="outlined-basic" label="Correo" variant="outlined" defaultValue={email}>
+            </TextField>
+          </ListItem>
+          <Divider />
+          {
+            edit && (
+              <ListItem>
+
+                <ListItemIcon>
+                  <MailIcon />
+                </ListItemIcon>
+                <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
+                  <InputLabel htmlFor="standard-adornment-password">Contraseña</InputLabel>
+                  <Input
+                    onChange={(e) => {
+                      setNewPass(e.target.value)
+                    }}
+                    id="standard-adornment-password"
+                    type={showPassword ? 'text' : 'password'}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                  />
+                </FormControl>
+                <Divider />
+              </ListItem>
+            )
+          }
+
+
+          <ListItem>
+            <ListItemIcon>
+              <DateRangeIcon />
+            </ListItemIcon>
+            <TextField disabled id="outlined-basic" label="Fecha de creación" variant="outlined" InputLabelProps={{
+              style: {
+                color: 'black'
+              }
+            }} defaultValue={formatted}>
+            </TextField>
             <Divider />
           </ListItem>
 
           <ListItem>
-            <ListItemButton>
-              <ListItemIcon>
-                <MailIcon />
-              </ListItemIcon>
-              <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
-                <InputLabel htmlFor="standard-adornment-password">Contraseña</InputLabel>
-                <Input
-                  id="standard-adornment-password"
-                  type={showPassword ? 'text' : 'password'}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-              </FormControl>
-            </ListItemButton>
+            <ListItemIcon>
+              <SystemUpdateAltIcon />
+            </ListItemIcon>
+            <TextField disabled id="outlined-basic" label="Última conexión" variant="outlined" InputLabelProps={{
+              style: {
+                color: 'black'
+              }
+            }} defaultValue={customFormatted}>
+            </TextField>
             <Divider />
           </ListItem>
-
-          <ListItem>
-            <ListItemButton>
-              <ListItemIcon>
-                <MailIcon />
-              </ListItemIcon>
-              <ListItemText primary={'Usuario'} />
-            </ListItemButton>
-            <Divider />
-          </ListItem>
-
         </List>
         <Divider />
-      </div>
+        {
+          !edit ? (
+            <Box sx={{ '& > :not(style)': { m: 1 } }}>
+              <Fab color="primary" aria-label="edit" onClick={(e) => setEdit(true)} >
+                <EditIcon />
+              </Fab>
+              <Fab variant="extended">  
+                Eliminar Cuenta
+              </Fab>
+            </Box>
+          ) : (
+            <Box sx={{ '& > :not(style)': { m: 1 } }}>
+              <Fab color="error" aria-label="cancel" onClick={(e) => setEdit(false)}>
+                <ClearIcon  />
+              </Fab>
+              <Fab variant="extended" color="primary" onClick={upDate}>
+                Actualizar Datos
+              </Fab>
+            </Box>
+          )
+        }
 
+      </div>
     </Box>
   );
 
-  useEffect(() => {
-    console.log('USUARIO ->', usuario);
-  }, [usuario]);
 
   return (
     <>
