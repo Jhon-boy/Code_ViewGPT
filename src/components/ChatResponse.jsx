@@ -81,7 +81,7 @@ export const ChatResponse = ({chat}) => {
                 <Grid item xs={12} md={6}>
                   <div className="chat-message">
                     <div className="message-header">
-                      <div><span> Código Ingresado</span></div>
+                      <div><span> Función Ingresada</span></div>
                       <div  onClick={copiar} ><ContentCopyIcon  className='Icon-Copy'
                         sx={{ color: 'gray' }} />
                       </div>
@@ -98,7 +98,7 @@ export const ChatResponse = ({chat}) => {
                 <Grid item xs={12} md={6}>
                   <div className="chat-message">
                     <div className="message-header">
-                      <div> Código Ingresado</div>
+                      <div> Pruebas Generadas</div>
                       <div onClick={copiar2}><ContentCopyIcon className='Icon-Copy'
                         sx={{ color: 'gray' }} />
                       </div></div>

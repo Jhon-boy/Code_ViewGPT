@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import '../styles/Home.css'
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -11,10 +11,15 @@ import CodeTextarea from './CodeTextarea';
 import { Context } from '../configs/Configuracion';
 import { configContext } from '../context/configContext';
 import { RotatingLines } from 'react-loader-spinner'
+import Modal from '@mui/material/Modal';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 export const Home = () => {
-  const [code] = React.useState('');
-  const { setCodigo, codigo, loading, response } = React.useContext(configContext)
+  const [code] = useState('');
+  const { setCodigo, codigo, loading, response } = useContext(configContext)
+  const [showWelcomeModal, setShowWelcomeModal] = useState(false);
+
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -26,6 +31,18 @@ export const Home = () => {
   const handleCodeChange = (value) => {
     setCodigo(value);
   };
+
+  const handleCloseWelcomeModal = () => {
+    setShowWelcomeModal(false);
+  };
+  useEffect(() => {
+    const isFirstLogin = localStorage.getItem('firstLogin') === null;
+
+    if (isFirstLogin) {
+      setShowWelcomeModal(true);
+      localStorage.setItem('firstLogin', 'false');
+    }
+  }, []);
 
   return (
     <>
@@ -72,6 +89,52 @@ export const Home = () => {
           <Context />
         </div>
       </div>
+      <Modal
+        open={showWelcomeModal}
+        onClose={handleCloseWelcomeModal}
+        style={{
+          display: 'flex',
+          alignItems: 'flex-end',
+          justifyContent: 'flex-end',
+          border: '2px solid #6495ED',
+          boxShadow: '0px 0px 10px #aaa',
+        }}
+      >
+      
+        <Paper
+          style={{
+            background: '#f2f2f2',
+            padding: '20px',
+            borderRadius: 10,
+            width: 300
+          }}
+        >
+
+          <Typography
+            variant="h6"
+            style={{ marginBottom: 20 }}
+          >
+            ¡Bienvenido a Code View!
+          </Typography>
+
+          <Typography>
+            Crea pruebas unitarias de forma rápida. ¡Comencemos!
+          </Typography>
+
+          <Button
+            onClick={handleCloseWelcomeModal}
+            style={{
+              marginTop: 20,
+              background: '#6495ED',
+              color: 'white'
+            }}
+          >
+            Comenzar
+          </Button>
+
+        </Paper>
+
+      </Modal>
     </>
   )
 }

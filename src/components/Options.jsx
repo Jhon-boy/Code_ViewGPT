@@ -11,7 +11,8 @@ import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
 import { GuardarRegistro } from '../services/firebaseController';
 import { green } from '@mui/material/colors';
-
+import Swal from 'sweetalert2';
+  
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
@@ -24,7 +25,7 @@ export const Options = () => {
   const [open, setOpen] = React.useState(false);
   const [copy, setCopy] = React.useState(false);
   const [bad, setBad] = React.useState(false);
- 
+
   const [load, setLoad] = React.useState(false);
   const { setLenguaje, setDescripcion, setTool, setResponse, setLoading, setCodigo, response } = React.useContext(configContext);
   const { lenguage, descripcion, tool, codigo, usuario } = React.useContext(configContext);
@@ -58,22 +59,32 @@ export const Options = () => {
 
 
   const Guardar = async () => {
-    setLoad(true);
-    registro.codigo_ingresado = codigo;
-    registro.codigo_respuesta = response;
-    registro.fecha_creacion = new Date();
-    registro.herramienta = tool;
-    registro.lenguaje = lenguage;
-    registro.titulo = descripcion;
-    registro.usuario = JSON.stringify(usuario.uid);
+    if (usuario.uid == null || usuario.uid == '') {
+      Swal.fire({
+        title: "Regístare primero!!",
+        text: "Para acceder a esta función, primero debes iniciar sesión o crearte una cuenta",
+        icon: "info"
+      });
+    } else {
+      setLoad(true);
+      registro.codigo_ingresado = codigo;
+      registro.codigo_respuesta = response;
+      registro.fecha_creacion = new Date();
+      registro.herramienta = tool;
+      registro.lenguaje = lenguage;
+      registro.titulo = descripcion;
+      registro.usuario = JSON.stringify(usuario.uid);
 
-    try {
-      await GuardarRegistro(registro);
-      setCopy(true);
-      setLoad(false);
-    } catch (error) {
-      setBad(true);
+      console.log(registro.usuario)
+      try {
+        await GuardarRegistro(registro);
+        setCopy(true);
+        setLoad(false);
+      } catch (error) {
+        setBad(true);
+      }
     }
+
   }
 
   return (

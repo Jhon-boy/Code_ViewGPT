@@ -13,17 +13,22 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
 .selectItem {
-  padding-top: 10px; /* espaciado deseado */
+  padding-top: 10px;
+  /* espaciado deseado */
 }
-.selectItem:hover{
+
+.selectItem:hover {
   border-bottom: 2px solid #108EEE;
 }
+
 .selectItem.active:after {
   content: '';
   display: block;
   border-bottom: 2px solid #108EEE;
-  width: 50%; /* ancho del borde */
+  width: 50%;
+  /* ancho del borde */
 }
 
 a {
@@ -248,10 +253,11 @@ button:focus-visible {
   width: 105px;
 }
 
-.select:hover{
+.select:hover {
   border-bottom: 2px solid #108EEE;
   border-radius: 4px;
 }
+
 .navItem:hover {
   transition: 0.1s;
   color: rgb(22, 123, 218);
@@ -348,39 +354,48 @@ button:focus-visible {
   border: 1px solid white;
   padding: 10px;
 }
+
 .portada {
   margin-top: 80px;
   height: 280px;
   border-bottom: 2px solid gray;
 }
-.img-portada{
+
+.img-portada {
   width: 93vmax;
   height: 250px;
 }
-.informacion{
+
+.informacion {
   margin-bottom: 20px;
 }
+
 .textP {
   width: 85%;
   margin-left: 30px;
   text-align: justify;
   margin-top: 20px;
 }
-.Materials{
+
+.Materials {
   margin-left: 80px;
   margin-bottom: 50px;
   margin-top: 30px;
 }
-.logosP{
+
+.logosP {
   border-bottom: 2px solid gray;
 }
+
 .textP a {
   text-decoration: none;
 }
-.textP h4{
+
+.textP h4 {
   margin-top: 20px;
   margin-bottom: 10px;
 }
+
 .textP a:hover {
   transition: 0.7ms;
   font-size: 20px;
@@ -435,43 +450,52 @@ button:focus-visible {
   height: 150px;
   margin: 10px;
 }
-.App-logo:hover{
+
+.App-logo:hover {
   cursor: pointer;
   height: 160px;
 }
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
-.informacion{
+
+.informacion {
   margin-top: 75px;
 }
-.contactanos{
+
+.contactanos {
   margin-top: 10px;
   padding: 50px;
   border-bottom: 2px solid gray;
   height: min-content;
-  margin-left: 10px ;
+  margin-left: 10px;
 }
-.contactanos div{
+
+.contactanos div {
   margin-top: 5px;
   height: max-content;
   margin-bottom: 5px;
   padding: 10px;
 }
+
 .contactanos h4 {
   font-weight: normal;
 }
-.contactanos a{
- text-decoration: none;
- font-weight: normal;
+
+.contactanos a {
+  text-decoration: none;
+  font-weight: normal;
   color: white;
 }
-.contactanos li{
+
+.contactanos li {
   text-decoration: none;
 }
- .formulario{
+
+.formulario {
   margin-top: 110px;
   background-color: white;
   color: black;
@@ -480,14 +504,16 @@ button:focus-visible {
   border-radius: 7px;
   min-height: 310px;
   padding-top: 10px;
-  width: fit-content ;
+  width: fit-content;
   margin-right: 30px;
   margin-left: 10px;
- }
- .contentt{
+}
+
+.contentt {
   display: flex;
- }
- .campo{
+}
+
+.campo {
   display: flex;
   border-radius: 7px;
   width: min-content;
@@ -497,11 +523,13 @@ button:focus-visible {
   border: 2px solid rgb(204, 201, 201);
   margin: 10px;
   padding-left: 10px;
- }
- .campo:focus{
+}
+
+.campo:focus {
   outline: rgb(0, 128, 255);
- }
- .campo input{
+}
+
+.campo input {
   background-color: white;
   color: black;
   width: auto;
@@ -509,11 +537,13 @@ button:focus-visible {
   height: auto;
   min-height: 35px;
   border: none;
- }
- .campo input:focus{
+}
+
+.campo input:focus {
   outline: none;
- }
- .area{
+}
+
+.area {
   width: 95%;
   margin-left: 15px;
   background-color: white;
@@ -521,38 +551,54 @@ button:focus-visible {
   border: 2px solid gray;
   border-radius: 7px;
   color: black;
- }
- .iconoPersona{
+}
+
+.iconoPersona {
   color: rgba(0, 110, 255, 0.795);
- }
- .btnStack2{
+}
+
+.btnStack2 {
   display: flex;
   gap: 30px;
   margin-left: 30%;
- }
- .btnStack2 Button {
+}
+
+.btnStack2 Button {
   margin-top: 20px;
   width: 100px;
   height: 40px;
- }
- .tutorial{
+}
+
+.tutorial {
   margin-top: 40px;
   padding: 40px;
   margin-bottom: 20px;
- }
- .titleP{
+}
+
+.titleP {
   color: rgb(54, 184, 244);
   font-size: 20px;
- }
- .tutorial h3{
-   font-weight: normal;
-   font-size: 18px;
- }
- .pruebas{
+}
+
+.tutorial h3 {
+  font-weight: normal;
+  font-size: 18px;
+}
+
+.pruebas {
   padding: 0px 0px 10px 10px;
   border-bottom: 2px solid gray;
 
- }
- .perfil{
+}
+
+.perfil {
   padding: 10px;
- }
+}
+
+.loader{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}

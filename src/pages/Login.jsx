@@ -9,6 +9,7 @@ import IconGoole from '../services/IconGoole.png'
 import Swal from 'sweetalert2';
 import { auth, provider } from '../services/firebase'
 import { configContext } from '../context/configContext';
+import { Loader } from '../components/Loader';
 
 
 export const Login = () => {
@@ -16,6 +17,7 @@ export const Login = () => {
     const { setUsuario } = useContext(configContext);
     const [emailRef, setEmailRef] = useState('');
     const [passwordRef, setPasswordRef] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const paperStyle = { padding: 20, margin: "30px auto", height: "auto", width: "320px" }
     const avatarStyle = {
@@ -27,7 +29,7 @@ export const Login = () => {
     const theme = useTheme();
     const isMatch = useMediaQuery(theme.breakpoints.down("md"));
 
-    const isDisabled = emailRef =='' || passwordRef == '';
+    const isDisabled = emailRef == '' || passwordRef == '';
 
     // navegador 
     //Funcion de routers para la navegacion 
@@ -62,6 +64,7 @@ export const Login = () => {
         }
     };
     const iniciarSesion = async () => {
+        setLoading(true);
         try {
             await signInWithEmailAndPassword(auth, emailRef, passwordRef).then((data) => {
                 setUsuario(data.user.email);
@@ -74,105 +77,120 @@ export const Login = () => {
                     showConfirmButton: false,
                     timer: 2500,
                     timerProgressBar: true
-
-                })
+                });
                 navigateTo('/');
-            })
-
+            });
         } catch (error) {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Verifique correo o contraseña',
-            })
+            });
+            setLoading(false);
+        } finally {
+            // Independientemente del resultado, establece loading a false después del tiempo simulado
+            setTimeout(() => {
+                setLoading(false);
+            }, 5000);
         }
-    }
-    
+    };
+
     return (
-        <div className='login'>
-        <Button onClick={() => navigateTo('/')} style={{marginLeft:'40px', marginTop: '10px'}}>Volver</Button>
-            <Box sx={{ flexGrow: 2 }} height="103vh">
-                <Grid container spacing={3}>
-                    {isMatch ? (
-                        <>
-                        </>
-                    ) : (<>
-                        <Grid item xs={12} md={6}>
-                            <div className='portada'>
-                                <img alt='portada-img' className='portada-img' src='https://quodem.com/wp-content/uploads/2022/03/Software-outsourcing.jpg' />
-                            </div>
-                        </Grid>
-                    </>)
-                    }
-                    <Grid item xs={12} md={5}>
-                        <div className='inicio'>
-                            <Paper elevation={15} style={paperStyle}>
-                                <Grid align='center'>
-                                    <Avatar style={avatarStyle}>
+        <>
+            {
+                loading ? (
+                    <Loader />
+                ) : (
+                    <div className='login'>
 
-                                    </Avatar>
-                                </Grid>
-                                <div style={{ marginTop: '20px' }}>
-                                    <TextField className='input'
-                                        label='Usuario' placeholder='Ingresa el usuario'
-                                        type='email' variant="outlined" fullWidth required
-                                        onChange={(e) => {
-                                            setEmailRef(e.target.value);
-                                        }}
-                                    />
-                                </div>
-                                <div style={{ marginTop: '20px' }}>
-                                    <TextField className='input' label='Contraseña' placeholder='Ingrese contraseña'
-                                        type='password' variant="outlined" fullWidth required
-                                        onChange={(e) => {
-                                            setPasswordRef(e.target.value);
-                                        }}
-                                    />
-                                </div>
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            name="checkedB"
-                                            color="primary"
-                                        />
-                                    }
-                                    label="Recuerdame"
-                                />
-                                <Button type='submit' color='primary' variant="contained"
-                                    style={btnstyle} fullWidth
-                                    onClick={iniciarSesion}
-                                    disabled={isDisabled}
-                                    >Iniciar sesion</Button>
-                                <Divider ><span className='spanText'>Inicia con</span></Divider>
-                                <center>
+                        <Button onClick={() => navigateTo('/')} style={{ marginLeft: '40px', marginTop: '10px' }}>Volver</Button>
+                        <Box sx={{ flexGrow: 2 }} height="103vh">
+                            <Grid container spacing={3}>
+                                {isMatch ? (
+                                    <>
+                                    </>
+                                ) : (<>
+                                    <Grid item xs={12} md={6}>
+                                        <div className='portada'>
+                                            <img alt='portada-img' className='portada-img' src='https://quodem.com/wp-content/uploads/2022/03/Software-outsourcing.jpg' />
+                                        </div>
+                                    </Grid>
+                                </>)
+                                }
+                                <Grid item xs={12} md={5}>
+                                    <div className='inicio'>
+                                        <Paper elevation={15} style={paperStyle}>
+                                            <Grid align='center'>
+                                                <Avatar style={avatarStyle}>
 
-                                    <div className='googleAuth' onClick={loginGoole}>
-                                        <span>
-                                            <img src={IconGoole} alt="Icono de Goole" height={'30'} className='icono' />
-                                        </span>
-                                        <Button >Inicia con Google</Button>
+                                                </Avatar>
+                                            </Grid>
+                                            <div style={{ marginTop: '20px' }}>
+                                                <TextField className='input'
+                                                    label='Usuario' placeholder='Ingresa el usuario'
+                                                    type='email' variant="outlined" fullWidth required
+                                                    onChange={(e) => {
+                                                        setEmailRef(e.target.value);
+                                                    }}
+                                                />
+                                            </div>
+                                            <div style={{ marginTop: '20px' }}>
+                                                <TextField className='input' label='Contraseña' placeholder='Ingrese contraseña'
+                                                    type='password' variant="outlined" fullWidth required
+                                                    onChange={(e) => {
+                                                        setPasswordRef(e.target.value);
+                                                    }}
+                                                />
+                                            </div>
+                                            <FormControlLabel
+                                                control={
+                                                    <Checkbox
+                                                        name="checkedB"
+                                                        color="primary"
+                                                    />
+                                                }
+                                                label="Recuerdame"
+                                            />
+                                            <Button type='submit' color='primary' variant="contained"
+                                                style={btnstyle} fullWidth
+                                                onClick={iniciarSesion}
+                                                disabled={isDisabled}
+                                            >Iniciar sesion</Button>
+                                            <Divider ><span className='spanText'>Inicia con</span></Divider>
+                                            <center>
+
+                                                <div className='googleAuth' onClick={loginGoole}>
+                                                    <span>
+                                                        <img src={IconGoole} alt="Icono de Goole" height={'30'} className='icono' />
+                                                    </span>
+                                                    <Button >Inicia con Google</Button>
+                                                </div>
+                                            </center>
+
+
+                                            <Typography onClick={() => navigateTo('/resetCount')}>
+                                                <Link className='text-important' >
+                                                    Olvidaste tu contraseña ?
+                                                </Link>
+                                            </Typography>
+                                            <Typography > No tienes cuenta aun?
+                                                <Button variant="text" onClick={() => navigateTo('/register')} >
+                                                    Registrate
+                                                </Button>
+                                            </Typography>
+                                        </Paper>
                                     </div>
-                                </center>
 
+                                </Grid>
+                            </Grid>
+                            <center><h5>Puedes acceder a tu historial de pruebas realizadas</h5></center>
+                        </Box>
+                    </div>
+                )
+            }
 
-                                <Typography onClick={() => navigateTo('/resetCount')}>
-                                    <Link className='text-important' >
-                                        Olvidaste tu contraseña ?
-                                    </Link>
-                                </Typography>
-                                <Typography > No tienes cuenta aun?
-                                    <Button variant="text" onClick={() => navigateTo('/register')} >
-                                        Registrate
-                                    </Button>
-                                </Typography>
-                            </Paper>
-                        </div>
+        </>
 
-                    </Grid>
-                </Grid>
-                <center><h5>Puedes acceder a tu historial de pruebas realizadas</h5></center>
-            </Box>
-        </div>
 
     )
 }

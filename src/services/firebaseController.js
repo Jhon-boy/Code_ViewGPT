@@ -1,5 +1,5 @@
 import { collection, addDoc, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
-import { getAuth, getRedirectResult, GoogleAuthProvider, sendPasswordResetEmail, updatePassword  } from "firebase/auth";
+import { getAuth, getRedirectResult, GoogleAuthProvider, sendPasswordResetEmail, updatePassword, deleteUser } from "firebase/auth";
 import { db, auth } from "./firebase"
 
 // save in database
@@ -14,12 +14,12 @@ export const updatePass = async (user, newPass) => {
     await updatePassword(user, newPass);
     return true;
   } catch (error) {
-    return false; 
+    return false;
   }
 }
 // get our historial data
 export const obtenerRegistros = async (usuario) => {
-  
+
   const q = query(collection(db, "registros"), where("usuario", "==", usuario));
   const querySnapshot = await getDocs(q);
   const registros = [];
@@ -32,16 +32,15 @@ export const obtenerRegistros = async (usuario) => {
 };
 
 // Delete a specific collection
-  export const deleteCollections = async (collectionName, id) => {
-    console.log(`deleting ${collectionName} +++ ` + id);
-      try {
-        const documentoReferencia = doc(db, collectionName, id);
-        await deleteDoc(documentoReferencia);
-        return true
-      } catch (error) {
-        return false;
-      }
+export const deleteCollections = async (collectionName, id) => {
+  try {
+    const documentoReferencia = doc(db, collectionName, id);
+    await deleteDoc(documentoReferencia);
+    return true
+  } catch (error) {
+    return false;
   }
+}
 // Sign In with Google Auth, is an option about login  
 export const iniciarConGoogle = () => {
   const auth = getAuth();
@@ -68,12 +67,20 @@ export const iniciarConGoogle = () => {
 }
 
 export const resetPassword = async (correo) => {
-  console.log("EMAIL :" + correo);
   try {
     await sendPasswordResetEmail(auth, correo);
     return { success: true };
   } catch (error) {
-    console.log("ERROR: " + error.message)
+    return { success: false, errorMessage: error.message };
+  }
+}
+
+export const deleteCount = async (usuario) => {
+  try {
+    await deleteUser(usuario);
+    return { success: true };
+  } catch (error) {
+    console.log(error.message);
     return { success: false, errorMessage: error.message };
   }
 } 
