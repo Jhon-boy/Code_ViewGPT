@@ -24,6 +24,7 @@ export const Context = () => {
     const { setLenguaje, lenguage, setDescripcion, descripcion, setTool, tool, codigo, setResponse, setLoading, setCodigo } = React.useContext(configContext)
     const isDisabled = lenguage == '' || tool == '';
     const isDisabledConfig = lenguage == '' || tool == '' || codigo == '';
+    const [disabled, setDisabled] = React.useState(false);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -39,13 +40,15 @@ export const Context = () => {
         setOpen(false);
     }
     const GenerateCode = async () => {
+        setDisabled(true); // we need to disable the option when we are working at new code
         setLoading(true); // change the loading state , and shows the loeader at main page
         try {
             const response = await generarCodigo(lenguage, descripcion, tool, codigo); // get the response
-            
             setResponse(response.message); // Save the answer 
         } finally {
             setLoading(false);  // Change to false 
+            setDisabled(false); //Change when THE API response to my client again.
+            
         }
     }
     const clearBox = () => {
@@ -80,10 +83,11 @@ export const Context = () => {
                         </Tooltip>
                     ) : null}
 
-                    <Button size="large" variant="outlined" onClick={handleClickOpen}>Configurar</Button>
+                    <Button size="large" variant="outlined" disabled={disabled}
+                     onClick={handleClickOpen}>Configurar</Button>
                     <Button size="large" variant="outlined"
                         onClick={GenerateCode}
-                        disabled={isDisabledConfig}
+                        disabled={isDisabledConfig || disabled}
                     >Generar Pruebas</Button>
                 </Stack>
             </div>

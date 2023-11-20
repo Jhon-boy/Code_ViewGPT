@@ -14,12 +14,12 @@ import { RotatingLines } from 'react-loader-spinner'
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Swal from 'sweetalert2';
 
 export const Home = () => {
   const [code] = useState('');
   const { setCodigo, codigo, loading, response } = useContext(configContext)
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
-
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -35,14 +35,23 @@ export const Home = () => {
   const handleCloseWelcomeModal = () => {
     setShowWelcomeModal(false);
   };
-  useEffect(() => {
-    const isFirstLogin = localStorage.getItem('firstLogin') === null;
 
-    if (isFirstLogin) {
-      setShowWelcomeModal(true);
-      localStorage.setItem('firstLogin', 'false');
+  useEffect(() => {
+
+    const handleBeforeUnload = e => {
+      if(loading) {
+        e.preventDefault();
+        window.alert('Espere por favor, la página se está cargando');
+      }
     }
-  }, []);
+  
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload); 
+    }
+  
+  }, [loading]);
 
   return (
     <>
@@ -100,7 +109,7 @@ export const Home = () => {
           boxShadow: '0px 0px 10px #aaa',
         }}
       >
-      
+
         <Paper
           style={{
             background: '#f2f2f2',

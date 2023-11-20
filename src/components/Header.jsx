@@ -12,7 +12,7 @@ import {
   Button, Fab,
   MenuItem,
   Box, TextField,
-  ListItemText, InputLabel,
+  InputLabel,
   Drawer, InputAdornment,
   Divider, ListItem,
   List,
@@ -36,7 +36,6 @@ import DateRangeIcon from '@mui/icons-material/DateRange';
 import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
 import { deleteCount, updatePass } from "../services/firebaseController.js";
 import Avatar from '@mui/material/Avatar';
-import { FormatColorResetRounded } from "@mui/icons-material";
 import { Loader } from "./Loader.jsx";
 
 export const Header = () => {
@@ -183,29 +182,47 @@ export const Header = () => {
       }
     })
   }
+
   const upDate = async () => {
     setEdit(true)
-    try {
-      await updatePass(user, newPass);
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Contraseña actualizada. Inicie sesión nuevamente por favor",
-        showConfirmButton: false,
-        timer: 1800,
-        didDestroy: async () => {
-          await signOut(auth);
-          localStorage.removeItem('credenciales');
-          navigateTo('/login');
-        }
-      });
-    } catch (e) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Ha ocurrido algo. Inténtalo más tarde",
-      });
-    };
+    setState(false);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "Esta acción actualizará tu cuenta?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then(result => {
+
+      if (result.isConfirmed) {
+        try {
+          updatePass(user, newPass);
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Contraseña actualizada. Inicie sesión nuevamente por favor",
+            showConfirmButton: false,
+            timer: 1800,
+            didDestroy: async () => {
+              await signOut(auth);
+              localStorage.removeItem('credenciales');
+              navigateTo('/login');
+            }
+          });
+        } catch (e) {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Ha ocurrido algo. Inténtalo más tarde",
+          });
+        };
+      }
+    }
+    );
+
 
   }
   useEffect(() => {
