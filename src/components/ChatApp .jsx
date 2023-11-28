@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { ChatsTitle } from './ChatsTitle';
 import '../styles/Chat.css'
 import { obtenerRegistros } from '../services/firebaseController';
@@ -10,8 +10,7 @@ import { colorPrimario, colroSecundario } from "../pure/colors";
 export const ChatApp = () => {
   const [chats, setChats] = useState([]); // Títulos de los chats
   const [currentChat, setCurrentChat] = useState(null);
-  const { usuario } = React.useContext(configContext);
-  const [contadorIntentos, setContadorIntentos] = useState(0);
+  const { usuario } = useContext(configContext);
   const [loeader, setLoeader] = useState(true);
 
   const loadChat = (chat) => {

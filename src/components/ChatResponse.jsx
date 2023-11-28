@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React  from 'react'
 import '../styles/Historial.css'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
@@ -11,7 +11,7 @@ import CommentIcon from '@mui/icons-material/Comment';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import { colroSecundario,colorLetras, colorPrimario2, colorPrimario } from "../pure/colors";
+import { colroSecundario,colorLetras} from "../pure/colors";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
