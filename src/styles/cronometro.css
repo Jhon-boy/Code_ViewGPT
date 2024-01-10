@@ -1,0 +1,47 @@
+
+.clock-container {
+  border: 2px solid white;
+  border-radius: 7px;
+  width: 220px;
+  background-color: #1b1a1a;
+  text-align: center;
+  margin: 50px;
+  font-family: 'Arial', sans-serif;
+  }
+  
+  .clock-title {
+    padding: 5px 30px 2px 30px;
+    color: rgb(0, 170, 255);
+    font-size: 16px;
+  }
+  
+  .clock-time {
+    font-size: 12px;
+    color: #eae4e4;
+  }
+  
+  .clock-indicator {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #11b9ec;
+    border-radius: 50%;
+    margin: 0 5px;
+  }
+  
+  .clock-indicator {
+    animation: rotateIndicator 1s linear infinite;
+  }
+  .clock-number{
+    color: #11b9ec;
+  }
+  @keyframes rotateIndicator {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  

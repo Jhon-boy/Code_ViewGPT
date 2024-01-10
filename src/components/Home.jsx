@@ -14,12 +14,16 @@ import { RotatingLines } from 'react-loader-spinner'
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Swal from 'sweetalert2';
+import { Cronometro } from './Cronometro';
+import Fab from '@mui/material/Fab';
+import TimerIcon from '@mui/icons-material/Timer';
 
 export const Home = () => {
   const [code] = useState('');
   const { setCodigo, codigo, loading, response } = useContext(configContext)
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
+  const [posición, setPosición] = useState({ x: 0, y: 0 })
+
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -35,22 +39,25 @@ export const Home = () => {
   const handleCloseWelcomeModal = () => {
     setShowWelcomeModal(false);
   };
+  function handleDrag(e) {
+    setPosición({ x: e.clientX, y: e.clientY })
+  }
 
   useEffect(() => {
 
     const handleBeforeUnload = e => {
-      if(loading) {
+      if (loading) {
         e.preventDefault();
         window.alert('Espere por favor, la página se está cargando');
       }
     }
-  
+
     window.addEventListener('beforeunload', handleBeforeUnload);
-    
+
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload); 
+      window.removeEventListener('beforeunload', handleBeforeUnload);
     }
-  
+
   }, [loading]);
 
   return (
@@ -98,6 +105,24 @@ export const Home = () => {
           <Context />
         </div>
       </div>
+
+      <Fab
+        color="inherit"
+        sx={{
+          position: 'absolute',
+          bottom: (theme) => theme.spacing(1),
+          right: (theme) => theme.spacing(10),
+        }}
+      >
+        {
+          loading ?
+            <Cronometro isLoadingDate={loading} />
+            : <TimerIcon color='primary' style={{ fontSize: '50px' }} />
+        }
+      </Fab>
+
+
+
       <Modal
         open={showWelcomeModal}
         onClose={handleCloseWelcomeModal}

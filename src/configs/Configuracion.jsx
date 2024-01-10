@@ -6,7 +6,6 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import { configContext } from '../context/configContext';
 import Autocomplete from '@mui/material/Autocomplete';
 import { TextareaAutosize } from '@mui/base/TextareaAutosize';
@@ -25,6 +24,12 @@ export const Context = () => {
     const isDisabled = lenguage == '' || tool == '';
     const isDisabledConfig = lenguage == '' || tool == '' || codigo == '';
     const [disabled, setDisabled] = React.useState(false);
+
+
+    const toolOptions = tooles
+        .filter(tool => tool.language === lenguage)
+        .map(tool => tool.tools);
+    toolOptions.unshift('Por defecto');
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -47,8 +52,7 @@ export const Context = () => {
             setResponse(response.message); // Save the answer 
         } finally {
             setLoading(false);  // Change to false 
-            setDisabled(false); //Change when THE API response to my client again.
-            
+            setDisabled(false); //Change when THE API response to my client again.     
         }
     }
     const clearBox = () => {
@@ -84,7 +88,7 @@ export const Context = () => {
                     ) : null}
 
                     <Button size="large" variant="outlined" disabled={disabled}
-                     onClick={handleClickOpen}>Configurar</Button>
+                        onClick={handleClickOpen}>Configurar</Button>
                     <Button size="large" variant="outlined"
                         onClick={GenerateCode}
                         disabled={isDisabledConfig || disabled}
@@ -102,10 +106,9 @@ export const Context = () => {
                     />
                     <h4 className='titulo'>Seleccione la herramienta:</h4>
                     <Autocomplete
-                        options={tooles}
-                        getOptionLabel={(option) => option.tools}
-                        onChange={(event, selectedValue) => setTool(selectedValue.tools)}
-                        renderInput={(params) => <TextField {...params} label="Lenguaje" />}
+                        options={toolOptions}
+                        onChange={(event, selectedValue) => setTool(selectedValue)}
+                        renderInput={(params) => <TextField {...params} label="Herramienta" />}
                     />
                     <DialogContentText>
                         <h4 className='titulo'>Da una breve descripción (opcional):</h4>
